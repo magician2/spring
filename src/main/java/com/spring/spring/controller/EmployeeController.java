@@ -46,15 +46,17 @@ public class EmployeeController {
     @GetMapping("/page")
     public  Map<String, Object> findPage(@RequestParam Integer pageNum,
                                          @RequestParam Integer pageSize,
-                                         @RequestParam String name
+                                         @RequestParam String name,
+                                         @RequestParam String department
                                         ){
         pageNum = (pageNum - 1) * pageSize;
         //totalは全ページ数
 
         name = '%' + name + '%';
+        department = '%' + department + '%';
 
-        List<EmployeeData> data = employeeMapper.selectPage(pageNum, pageSize,name);
-        Integer total = employeeMapper.selectTotal(name);
+        List<EmployeeData> data = employeeMapper.selectPage(pageNum, pageSize,name,department);
+        Integer total = employeeMapper.selectTotal(name,department);
         //dataの中身選択されたページのコンテンツ
         Map<String, Object> res = new HashMap<>();
         res.put("data",data);
