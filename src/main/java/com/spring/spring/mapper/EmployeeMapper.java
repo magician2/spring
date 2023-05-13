@@ -19,12 +19,12 @@ public interface EmployeeMapper {
     int update(EmployeeData employeedata);
 
     @Delete("Delete from employeedata where id = #{id} ")
-    Integer deleteByid(@Param("id") Integer id);
+    Integer deleteById(@Param("id") Integer id);
 
-    @Select("SELECT * from employeedata limit #{pageNum},#{pageSize}")
-    List <EmployeeData> selectPage(Integer pageNum,Integer pageSize);
+    @Select("SELECT * from employeedata where name like #{name} limit #{pageNum},#{pageSize}")
+    List <EmployeeData> selectPage(Integer pageNum,Integer pageSize,String name);
 
-    @Select("SELECT count(*) from employeedata")
-    Integer selectTotal();
+    @Select("SELECT count(*) from employeedata where name like #{name}")
+    Integer selectTotal(String name);
 
 }

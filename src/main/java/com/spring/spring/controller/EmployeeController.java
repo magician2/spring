@@ -36,7 +36,7 @@ public class EmployeeController {
     //url後ろにidを追加することでidカラムを削除
     @DeleteMapping("/{id}")
     public Integer delete(@PathVariable Integer id){
-        return employeeMapper.deleteByid(id);
+        return employeeMapper.deleteById(id);
     }
 
     //ページネーション
@@ -44,16 +44,21 @@ public class EmployeeController {
     //@RequestParamでurlを受け取る
     //sql limit 二つのパラメータ持ち 0,2 1ページ2コンテンツの意味 (ページネーション計算式 limit = (ページ数 - 1) * コンテンツ数)
     @GetMapping("/page")
-    public  Map<String, Object> findPage(@RequestParam Integer pageNum,@RequestParam Integer pageSize){
+    public  Map<String, Object> findPage(@RequestParam Integer pageNum,
+                                         @RequestParam Integer pageSize,
+                                         @RequestParam String name
+                                        ){
         pageNum = (pageNum - 1) * pageSize;
-        Integer total = employeeMapper.selectTotal();
         //totalは全ページ数
-        List<EmployeeData> data = employeeMapper.selectPage(pageNum, pageSize);
+
+        name = '%' + name + '%';
+
+        List<EmployeeData> data = employeeMapper.selectPage(pageNum, pageSize,name);
+        Integer total = employeeMapper.selectTotal(name);
         //dataの中身選択されたページのコンテンツ
         Map<String, Object> res = new HashMap<>();
         res.put("data",data);
         res.put("total",total);
-
         return res;
     }
 }

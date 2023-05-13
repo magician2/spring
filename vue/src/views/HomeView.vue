@@ -41,11 +41,10 @@
                   </el-breadcrumb>
 
                   <div class="pd-10">
-                      <el-input style="width: 200px" suffix-icon="el-icon-collection-tag
-" placeholder="社員番号"></el-input>
-                      <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前" v-model="name"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="所属"></el-input>
-                      <el-button class="ml-5" type="primary">検索</el-button>
+                      <el-button class="ml-5" type="primary" @click="load">検索</el-button>
                   </div>
 
                   <div style="margin: 10px 0">
@@ -53,11 +52,23 @@
                   </div>
 
                   <el-table :data="tableData" border stripe :header-cell-class-name="headerBg">
-                      <el-table-column prop="age" label="社員番号" width="140" >
+                      <el-table-column prop="id" label="社員番号" width="80" >
                       </el-table-column>
                       <el-table-column prop="name" label="名前" width="120">
                       </el-table-column>
+                      <el-table-column prop="age" label="年齢" width="80">
+                      </el-table-column>
+                      <el-table-column prop="gender" label="性別">
+                      </el-table-column>
+                      <el-table-column prop="dateOfBirth" label="生年月日">
+                      </el-table-column>
                       <el-table-column prop="department" label="所属">
+                      </el-table-column>
+                      <el-table-column prop="hobby" label="趣味">
+                      </el-table-column>
+                      <el-table-column prop="mail" label="メールアドレス">
+                      </el-table-column>
+                      <el-table-column prop="phone" label="所属">
                       </el-table-column>
                       <el-table-column label="操作">
                           <template  slot-scope="scope">
@@ -69,9 +80,11 @@
               </el-main>
               <div style="padding: 10px">
                   <el-pagination
-
-                      :page-sizes="[5, 10, 15, 20]"
-                      :page-size="10"
+                      @size-change="handleSizeChange"
+                      @current-change="handleCurrentChange"
+                      :current-page="pageNum"
+                      :page-sizes="[2, 5, 10, 20]"
+                      :page-size="pageSize"
                       layout="total, sizes, prev, pager, next, jumper"
                       :total="total">
                   </el-pagination>
@@ -93,6 +106,10 @@ export default {
             tableData: [],
             msg: "hello,11",
             total:0,
+            pageNum : 1,
+            pageSize:2,
+            name:"",
+            department: "",
             collapseBtnClass : 'el-icon-s-fold',
             isCollapse: false,
             sideWidth : 250,
@@ -102,12 +119,7 @@ export default {
     },
     created() {
       //ページネーションデータ　抽出
-        fetch("http://localhost:9090/employeePage/page?pageNum=1&pageSize=2").then(res => res.json()).then(res=>{
-            console.log(res)
-            this.tableData = res.data
-            this.total = res.total
-        })
-
+        this.load()
     },
     methods : {
       collapse(){
@@ -122,7 +134,25 @@ export default {
               this.collapseBtnClass = 'el-icon-s-fold'
               this.logoTextShow = !this.logoTextShow
           }
-      }
+      },
+      load(){
+            fetch("http://localhost:9090/employeePage/page?pageNum="+this.pageNum +"&pageSize=" + this.pageSize + "&name="+this.name).then(res => res.json()).then(res=>{
+                console.log("loadNum",this.pageNum)
+                this.tableData = res.data
+                this.total = res.total
+            })
+      },
+      handleCurrentChange(pageNum){
+          console.log("Num",pageNum)
+          this.pageNum = pageNum
+          this.load()
+      },
+      handleSizeChange(pageSize){
+          this.pageSize = pageSize
+          console.log(pageSize)
+          this.load()
+      },
+
     }
 }
 </script>
