@@ -43,7 +43,7 @@
                   <div class="pd-10">
                       <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前" v-model="name"></el-input>
-                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="所属"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="所属" v-model="department"></el-input>
                       <el-button class="ml-5" type="primary" @click="load">検索</el-button>
                   </div>
 
@@ -136,7 +136,7 @@ export default {
           }
       },
       load(){
-            fetch("http://localhost:9090/employeePage/page?pageNum="+this.pageNum +"&pageSize=" + this.pageSize + "&name="+this.name).then(res => res.json()).then(res=>{
+            fetch("http://localhost:9090/employeePage/page?pageNum="+this.pageNum +"&pageSize=" + this.pageSize + "&name="+this.name + "&department=" + this.department ).then(res => res.json()).then(res=>{
                 console.log("loadNum",this.pageNum)
                 this.tableData = res.data
                 this.total = res.total

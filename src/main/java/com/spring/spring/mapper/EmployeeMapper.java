@@ -21,10 +21,10 @@ public interface EmployeeMapper {
     @Delete("Delete from employeedata where id = #{id} ")
     Integer deleteById(@Param("id") Integer id);
 
-    @Select("SELECT * from employeedata where name like #{name} limit #{pageNum},#{pageSize}")
-    List <EmployeeData> selectPage(Integer pageNum,Integer pageSize,String name);
+    @Select("SELECT * from employeedata where name like #{name} and department like #{department} limit #{pageNum},#{pageSize}")
+    List <EmployeeData> selectPage(Integer pageNum,Integer pageSize,String name,String department);
 
-    @Select("SELECT count(*) from employeedata where name like #{name}")
-    Integer selectTotal(String name);
+    @Select("SELECT count(*) from employeedata where name like #{name} and department like #{department}")
+    Integer selectTotal(String name,String department);
 
 }
