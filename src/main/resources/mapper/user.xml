@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace指向mapper.xml所对应的Mapper接口-->
+<mapper namespace="com.spring.spring.mapper.EmployeeMapper">
+    <update id="update">
+        update employeedata
+            <set>
+                <if test="name != null">
+                    name = #{name},
+                </if>
+                <if test="age != null">
+                    age = #{age},
+                </if>
+                <if test="katakana != null">
+                    katakana = #{katakana},
+                </if>
+                <if test="gender != null">
+                    gender = #{gender},
+                </if>
+                <if test="department != null">
+                    department =#{department},
+                </if>
+                <if test="dateOfBirth != null">
+                    dateOfBirth =#{dateOfBirth},
+                </if>
+                <if test="address != null">
+                    address = #{address},
+                </if>
+                <if test="academic != null">
+                    academic = #{academic},
+                </if>
+                <if test="mail != null">
+                    mail = #{mail},
+                </if>
+                <if test="hobby != null">
+                    hobby = #{hobby},
+                </if>
+                <if test="img_url != null">
+                    img_url = #{img_url},
+                </if>
+                <if test="phone != null">
+                    phone = #{phone}
+                </if>
+            </set>
+             where id = #{id}
+    </update>
+
+</mapper>
