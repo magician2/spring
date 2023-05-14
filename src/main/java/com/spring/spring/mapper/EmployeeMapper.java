@@ -23,7 +23,7 @@ public interface EmployeeMapper {
 
     @Select("SELECT * from employeedata where name like #{name}  and department  like #{department} and age like #{age} and " +
             "gender like #{gender} and dateOfBirth like #{dateOfBirth} and academic like #{academic} and mail like #{mail} " +
-            "and hobby like #{hobby} and phone like #{phone} and address like#{address}")
+            "and hobby like #{hobby} and phone like #{phone} and address like #{address} limit #{pageNum},#{pageSize}")
     List <EmployeeData> selectPage(Integer pageNum,Integer pageSize,String name,String department,String age,String gender,String dateOfBirth,String academic,String mail,String hobby,String phone,String address);
 
     @Select("SELECT count(*) from employeedata where name  like #{name} and department like #{department} and age like #{age} and " +

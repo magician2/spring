@@ -1,23 +1,12 @@
 <template>
   <div style="height: 100%">
-      <el-container style="height: 100%; ">
-          <el-aside :width="sideWidth + 'px' " style="background-color: rgb(238, 241, 246); height :100%">
-              <el-menu :default-openeds="['1', '3']" style="min-height: 100%; overflow-x: hidden"
-                background-color="rgb(0,109,119)"
-                text-color="#fff"
-                active-text-color="#ffd04b"
-                :collapse-transition="false"
-                class="el-menu-vertical-demo"
-                       :collapse="isCollapse"
-              >
-                  <div style="height: 60px;line-height: 60px;text-align: center">
-                    <b style="color: white" v-show="logoTextShow">社員管理システム</b>
-                  </div>
+      <el-container style="height: 80%; ">
+          <el-aside :width="sideWidth + 'px' " style=" height :100%">
 
-              </el-menu>
+            <Aside/>
           </el-aside>
-
           <el-container>
+
               <el-header style="font-size: 12px; border-bottom: 1px solid #ccc;line-height: 60px;display: flex  " >
                   <div style="flex: 1;font-size: 18px">
                     <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
@@ -41,7 +30,7 @@
                   </el-breadcrumb>
 
                   <div class="pd-10">
-                      <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号" class="ml-5"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前" v-model="name"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="部署" v-model="age"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="性別" v-model="gender"></el-input>
@@ -86,49 +75,59 @@
                       </el-table-column>
                       <el-table-column label="操作">
                           <template  slot-scope="scope">
-                              <el-button type="">編集<i class="el-icon-edit-outline"></i></el-button>
-                              <el-button type="">削除<i class="el-icon-remove-outline"></i></el-button>
+                              <el-button type="success" @click="handleEdit(scope.row)">編集<i class="el-icon-edit-outline"></i></el-button>
+                              <el-popconfirm
+                                  confirm-button-text='はい'
+                                  cancel-button-text='いいえ'
+                                  icon="el-icon-info"
+                                  icon-color="red"
+                                  title="この情報は削除でよろしいでしょうか？"
+                                  @confirm="handleDelete(scope.row.id)"
+                              >
+                                 <el-button type="danger"  slot="reference">削除<i class="el-icon-remove-outline"></i></el-button>
+                              </el-popconfirm>
                           </template>
                       </el-table-column>
                   </el-table>
-                  <el-dialog title="新規登録" :visible.sync="dialogFormVisible" width="30%" size="small">
+                  <el-dialog title="新規登録" :visible.sync="dialogFormVisible" width="30%" size="small" >
                       <el-form label-width="150px" size="small" label-position="top">
-                          <el-form-item label="名前" :label-width="formLabelWidth" >
+                          <el-form-item label="名前"  >
                               <el-input  autocomplete="off" v-model="form.name"></el-input>
                           </el-form-item>
-                          <el-form-item label="年齢" :label-width="formLabelWidth" >
-                              <el-input  autocomplete="off" v-model="form.age"></el-input>
+                          <el-form-item label="年齢" >
+                              <el-input v-model= "form.age" oninput="value=value.replace(/[^0-9]/g,'')" />
+
                           </el-form-item>
-                          <el-form-item label="性別" :label-width="formLabelWidth">
+                          <el-form-item label="性別" >
                               <el-select  placeholder="性別を選んでください"  v-model="form.gender">
                                   <el-option label="男性" value="男性"></el-option>
                                   <el-option label="女性" value="女性"></el-option>
                               </el-select>
                           </el-form-item>
-                          <el-form-item label="生年月日" :label-width="formLabelWidth" >
+                          <el-form-item label="生年月日"  >
                               <el-input  autocomplete="off" v-model="form.dateOfBirth"></el-input>
                           </el-form-item>
-                          <el-form-item label="部署" :label-width="formLabelWidth" >
+                          <el-form-item label="部署"  >
                               <el-input  autocomplete="off" v-model="form.department"></el-input>
                           </el-form-item>
-                          <el-form-item label="趣味" :label-width="formLabelWidth" >
+                          <el-form-item label="趣味" >
                               <el-input  autocomplete="off" v-model="form.hobby"></el-input>
                           </el-form-item>
-                          <el-form-item label="メールアドレス" :label-width="formLabelWidth" >
+                          <el-form-item label="メールアドレス" >
                               <el-input  autocomplete="off" v-model="form.mail"></el-input>
                           </el-form-item>
-                          <el-form-item label="電話番号" :label-width="formLabelWidth" >
+                          <el-form-item label="電話番号"  >
                               <el-input  autocomplete="off" v-model="form.phone"></el-input>
                           </el-form-item>
-                          <el-form-item label="最終学歴" :label-width="formLabelWidth" >
+                          <el-form-item label="最終学歴"  >
                               <el-input  autocomplete="off" v-model="form.academic"></el-input>
                           </el-form-item>
-                          <el-form-item label="住所" :label-width="formLabelWidth" >
+                          <el-form-item label="住所"  >
                               <el-input  autocomplete="off" v-model="form.address"></el-input>
                           </el-form-item>
                       </el-form>
                       <div slot="footer" class="dialog-footer">
-                          <el-button >キャンセル</el-button>
+                          <el-button @click="dialogFormVisible=false">キャンセル</el-button>
                           <el-button type="primary" @click="save">登録</el-button>
                       </div>
                   </el-dialog>
@@ -140,8 +139,10 @@
                       :current-page="pageNum"
                       :page-sizes="[2, 5, 10, 20]"
                       :page-size="pageSize"
-                      layout="total, sizes, prev, pager, next, jumper"
-                      :total="total">
+                      layout=" prev, pager, next"
+                      :total="total"
+                      style="width: 200px;margin: 0 auto"
+                  >
                   </el-pagination>
               </div>
           </el-container>
@@ -154,18 +155,15 @@
 
 // @ is an alias to /src
 import request from "@/utils/request";
-
+import Aside from "../components/Aside.vue"
 export default {
-  name: 'HomeView',
-  components: {
-  },
     data(){
         return {
             tableData: [],
             form:{},
             total:0,
             pageNum : 1,
-            pageSize:10,
+            pageSize:6,
             name:"",
             department: "",
             age:"",
@@ -177,12 +175,12 @@ export default {
             academic:"",
             address:"",
             collapseBtnClass : 'el-icon-s-fold',
-            isCollapse: false,
-            sideWidth : 250,
-            logoTextShow:true,
             headerBg: 'headerBg',
             dialogFormVisible: false,
         }
+    },
+    components:{
+      Aside
     },
     created() {
       //ページネーションデータ　抽出
@@ -191,16 +189,32 @@ export default {
     methods : {
       handleAdd(){
           this.dialogFormVisible = true
-          this.form()
+          this.form = {}
       },
       save(){
-        request.post("http://localhost:9090/employeePage",this.form).then(res=>{
+        request.post("/employeePage",this.form).then(res=>{
             if(res){
                 this.$message.success("yes")
             }else {
                 this.$message.error("no")
             }
+            this.load()
             this.dialogFormVisible = false
+        })
+      },
+      handleEdit(row){
+          this.form = row
+          console.log(row)
+          this.dialogFormVisible = true
+      },
+      handleDelete(id){
+        request.delete("/employeePage/" + id).then(res=>{
+            if(res){
+                this.$message.success("yes")
+            }else {
+                this.$message.error("no")
+            }
+            this.load()
         })
       },
       collapse(){
@@ -217,7 +231,7 @@ export default {
           }
       },
       load(){
-            request.get("http://localhost:9090/employeePage/page?",{
+            request.get("/employeePage/page?",{
                 params:{
                     pageNum: this.pageNum,
                     pageSize:this.pageSize,
@@ -230,7 +244,7 @@ export default {
                     mail:this.mail,
                     phone:this.phone,
                     academic:this.academic,
-                    address:this.address
+                    address:this.address,
                 }
             } ).then(res => {
                 console.log(res)
