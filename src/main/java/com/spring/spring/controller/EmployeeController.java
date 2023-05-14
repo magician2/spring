@@ -46,18 +46,34 @@ public class EmployeeController {
     @GetMapping("/page")
     public  Map<String, Object> findPage(@RequestParam Integer pageNum,
                                          @RequestParam Integer pageSize,
-                                         @RequestParam String name,
-                                         @RequestParam String department
+                                         @RequestParam(defaultValue = "") String name,
+                                         @RequestParam(defaultValue = "") String age,
+                                         @RequestParam(defaultValue = "") String gender,
+                                         @RequestParam(defaultValue = "") String department,
+                                         @RequestParam(defaultValue = "") String dateOfBirth,
+                                         @RequestParam(defaultValue = "") String academic,
+                                         @RequestParam(defaultValue = "") String mail,
+                                         @RequestParam(defaultValue = "") String hobby,
+                                         @RequestParam(defaultValue = "") String phone,
+                                         @RequestParam(defaultValue = "") String address
                                         ){
         pageNum = (pageNum - 1) * pageSize;
-        //totalは全ページ数
 
-        name = '%' + name + '%';
+        name= "%" + name + "%";
         department = '%' + department + '%';
+        age = '%' + age + '%';
+        gender = '%' + gender + '%';
+        dateOfBirth = '%' + dateOfBirth + '%';
+        academic ='%' + academic + '%';
+        mail = '%' + mail + '%';
+        hobby = '%' + hobby + '%';
+        phone ='%' + phone + '%';
+        address = '%' + address + '%';
 
-        List<EmployeeData> data = employeeMapper.selectPage(pageNum, pageSize,name,department);
-        Integer total = employeeMapper.selectTotal(name,department);
+        List<EmployeeData> data = employeeMapper.selectPage(pageNum, pageSize,name,department,age,gender,dateOfBirth,academic,mail,hobby,phone,address);
+        Integer total = employeeMapper.selectTotal(name,department,age,gender,dateOfBirth,academic,mail,hobby,phone,address);
         //dataの中身選択されたページのコンテンツ
+        //totalは全ページ数
         Map<String, Object> res = new HashMap<>();
         res.put("data",data);
         res.put("total",total);

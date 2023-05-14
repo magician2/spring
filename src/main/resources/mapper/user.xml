@@ -45,5 +45,49 @@
             </set>
              where id = #{id}
     </update>
+<!--    <select id="selectPage" parameterType="date" resultType="com.spring.spring.controller.EmployeeController">-->
+<!--        select * from employeedata where name-->
+<!--        <if test="name != #{name}">-->
+<!--            like name = #{name}-->
+<!--        </if>-->
+<!--                                       limit #{pageNum},#{pageSize}-->
+<!--             age like-->
+<!--        <if test="age != null">-->
+<!--            age = #{age} and-->
+<!--        </if>-->
+<!--            gender like-->
+<!--        <if test="gender != null">-->
+<!--            gender = #{gender} and-->
+<!--        </if>-->
+<!--            department like-->
+<!--        <if test="department != null">-->
+<!--            department = #{department} and-->
+<!--        </if>-->
+<!--            dateOfBirth like-->
+<!--        <if test="dateOfBirth != null">-->
+<!--            dateOfBirth = #{dateOfBirth} and-->
+<!--        </if>-->
+<!--            address like-->
+<!--        <if test="address != null">-->
+<!--            address = #{address} and-->
+<!--        </if>-->
+<!--            academic like-->
+<!--        <if test="academic != null">-->
+<!--            academic = #{academic} and-->
+<!--        </if>-->
+<!--            mail like-->
+<!--        <if test="mail != null">-->
+<!--            mail = #{mail} and-->
+<!--        </if>-->
+<!--            hobby like-->
+<!--        <if test="hobby != null">-->
+<!--            hobby = #{hobby} and-->
+<!--        </if>-->
+<!--            address like-->
+<!--        <if test="phone != null">-->
+<!--            phone = #{phone}-->
+<!--        </if>-->
 
+
+<!--    </select>-->
 </mapper>

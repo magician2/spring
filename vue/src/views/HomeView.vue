@@ -43,12 +43,22 @@
                   <div class="pd-10">
                       <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前" v-model="name"></el-input>
-                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="所属" v-model="department"></el-input>
-                      <el-button class="ml-5" type="primary" @click="load">検索</el-button>
+                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="部署" v-model="age"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="性別" v-model="gender"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="生年月日" v-model="dateOfBirth"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="部署" v-model="department"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="趣味" v-model="hobby"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="最終履歴" v-model="academic"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="メールアドレス" v-model="mail"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="住所" v-model="address"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="電話番号" v-model="phone"></el-input>
+
                   </div>
 
                   <div style="margin: 10px 0">
-                      <el-button type="primary">増加<i class="el-icon-circle-plus-outline"></i></el-button>
+                      <el-button type="primary" @click="handleAdd">新規登録<i class="el-icon-circle-plus-outline"></i></el-button>
+                      <el-button class="ml-5" type="primary" @click="load">検索</el-button>
+                      <el-button class="ml-5" type="primary" @click="reset">クリア</el-button>
                   </div>
 
                   <el-table :data="tableData" border stripe :header-cell-class-name="headerBg">
@@ -62,13 +72,17 @@
                       </el-table-column>
                       <el-table-column prop="dateOfBirth" label="生年月日">
                       </el-table-column>
-                      <el-table-column prop="department" label="所属">
+                      <el-table-column prop="department" label="部署">
                       </el-table-column>
                       <el-table-column prop="hobby" label="趣味">
                       </el-table-column>
                       <el-table-column prop="mail" label="メールアドレス">
                       </el-table-column>
-                      <el-table-column prop="phone" label="所属">
+                      <el-table-column prop="phone" label="電話番号">
+                      </el-table-column>
+                      <el-table-column prop="academic" label="最終履歴">
+                      </el-table-column>
+                      <el-table-column prop="address" label="住所">
                       </el-table-column>
                       <el-table-column label="操作">
                           <template  slot-scope="scope">
@@ -77,6 +91,47 @@
                           </template>
                       </el-table-column>
                   </el-table>
+                  <el-dialog title="新規登録" :visible.sync="dialogFormVisible" width="30%" size="small">
+                      <el-form label-width="150px" size="small" label-position="top">
+                          <el-form-item label="名前" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.name"></el-input>
+                          </el-form-item>
+                          <el-form-item label="年齢" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.age"></el-input>
+                          </el-form-item>
+                          <el-form-item label="性別" :label-width="formLabelWidth">
+                              <el-select  placeholder="性別を選んでください"  v-model="form.gender">
+                                  <el-option label="男性" value="男性"></el-option>
+                                  <el-option label="女性" value="女性"></el-option>
+                              </el-select>
+                          </el-form-item>
+                          <el-form-item label="生年月日" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.dateOfBirth"></el-input>
+                          </el-form-item>
+                          <el-form-item label="部署" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.department"></el-input>
+                          </el-form-item>
+                          <el-form-item label="趣味" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.hobby"></el-input>
+                          </el-form-item>
+                          <el-form-item label="メールアドレス" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.mail"></el-input>
+                          </el-form-item>
+                          <el-form-item label="電話番号" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.phone"></el-input>
+                          </el-form-item>
+                          <el-form-item label="最終学歴" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.academic"></el-input>
+                          </el-form-item>
+                          <el-form-item label="住所" :label-width="formLabelWidth" >
+                              <el-input  autocomplete="off" v-model="form.address"></el-input>
+                          </el-form-item>
+                      </el-form>
+                      <div slot="footer" class="dialog-footer">
+                          <el-button >キャンセル</el-button>
+                          <el-button type="primary" @click="save">登録</el-button>
+                      </div>
+                  </el-dialog>
               </el-main>
               <div style="padding: 10px">
                   <el-pagination
@@ -96,7 +151,10 @@
 </template>
 
 <script>
+
 // @ is an alias to /src
+import request from "@/utils/request";
+
 export default {
   name: 'HomeView',
   components: {
@@ -104,17 +162,26 @@ export default {
     data(){
         return {
             tableData: [],
-            msg: "hello,11",
+            form:{},
             total:0,
             pageNum : 1,
-            pageSize:2,
+            pageSize:10,
             name:"",
             department: "",
+            age:"",
+            gender: "",
+            dateOfBirth :"",
+            hobby:"",
+            mail:"",
+            phone:"",
+            academic:"",
+            address:"",
             collapseBtnClass : 'el-icon-s-fold',
             isCollapse: false,
             sideWidth : 250,
             logoTextShow:true,
-            headerBg: 'headerBg'
+            headerBg: 'headerBg',
+            dialogFormVisible: false,
         }
     },
     created() {
@@ -122,6 +189,20 @@ export default {
         this.load()
     },
     methods : {
+      handleAdd(){
+          this.dialogFormVisible = true
+          this.form()
+      },
+      save(){
+        request.post("http://localhost:9090/employeePage",this.form).then(res=>{
+            if(res){
+                this.$message.success("yes")
+            }else {
+                this.$message.error("no")
+            }
+            this.dialogFormVisible = false
+        })
+      },
       collapse(){
         this.isCollapse = !this.isCollapse
           if(this.isCollapse){
@@ -136,12 +217,41 @@ export default {
           }
       },
       load(){
-            fetch("http://localhost:9090/employeePage/page?pageNum="+this.pageNum +"&pageSize=" + this.pageSize + "&name="+this.name + "&department=" + this.department ).then(res => res.json()).then(res=>{
-                console.log("loadNum",this.pageNum)
+            request.get("http://localhost:9090/employeePage/page?",{
+                params:{
+                    pageNum: this.pageNum,
+                    pageSize:this.pageSize,
+                    name:this.name,
+                    department: this.department,
+                    age:this.age,
+                    gender:this.gender,
+                    dateOfBirth:this.dateOfBirth,
+                    hobby:this.hobby,
+                    mail:this.mail,
+                    phone:this.phone,
+                    academic:this.academic,
+                    address:this.address
+                }
+            } ).then(res => {
+                console.log(res)
                 this.tableData = res.data
                 this.total = res.total
-            })
+            }
+            )
       },
+        reset(){
+                this.name = "",
+                this.department = "",
+                this.age = "",
+                this.gender = "",
+                this.dateOfBirth = "",
+                this.hobby = "",
+                this.mail= "",
+                this.phone = "",
+                this.academic = "",
+                this.address = ""
+            this.load()
+        },
       handleCurrentChange(pageNum){
           console.log("Num",pageNum)
           this.pageNum = pageNum
