@@ -1,6 +1,7 @@
 package com.spring.spring.service;
 
 
+import com.spring.spring.controller.dto.UserDTO;
 import com.spring.spring.entity.EmployeeData;
 import com.spring.spring.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +22,8 @@ public class UserService {
 
         }
     }
+
+//    public Integer login(UserDTO userDTO) {
+//        boolean login(UserDTO)
+//    }
 }

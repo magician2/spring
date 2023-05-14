@@ -1,8 +1,11 @@
 <template>
     <div class="wrapper">
         <div
-                style="margin: 200px auto; background-color: #fff; width: 350px; height: 280px; padding: 20px; border-radius: 10px">
-            <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>登 录</b></div>
+                style="margin: 200px auto; background-color: #fff; width: 350px;  padding: 20px; border-radius: 10px">
+
+            <div style="margin: 20px 0; text-align: center; font-size: 24px">
+                <img src="../assets/23649043.png" width="150"/>
+            </div>
             <el-form :model="user" :rules="rules" ref="userForm">
                 <el-form-item prop="username">
                     <el-input size="medium" prefix-icon="el-icon-user" v-model="user.username"></el-input>
@@ -12,8 +15,8 @@
                               v-model="user.password"></el-input>
                 </el-form-item>
                 <el-form-item style="margin: 10px 0; text-align: right">
-                    <el-button type="warning" size="small" autocomplete="off" @click="$router.push('/register')">注册</el-button>
-                    <el-button type="primary" size="small" autocomplete="off" @click="login">登录</el-button>
+                    <el-button type="warning" size="small" autocomplete="off" @click="$router.push('/register')">Sign in</el-button>
+                    <el-button type="primary" size="small" autocomplete="off" @click="login">Login</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -30,11 +33,11 @@ export default {
             user: {},
             rules: {
                 username: [
-                    {required: true, message: '请输入用户名', trigger: 'blur'},
+                    {required: true, message: 'ユーザー名を入力してください', trigger: 'blur'},
                     {min: 3, max: 10, message: '长度在 3 到 5 个字符', trigger: 'blur'}
                 ],
                 password: [
-                    {required: true, message: '请输入密码', trigger: 'blur'},
+                    {required: true, message: 'パスワードを入力してください', trigger: 'blur'},
                     {min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur'}
                 ],
             }

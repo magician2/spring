@@ -7,10 +7,7 @@
           </el-aside>
           <el-container>
 
-              <el-header style="font-size: 12px; border-bottom: 1px solid #ccc;line-height: 60px;display: flex  " >
-                  <div style="flex: 1;font-size: 18px">
-                    <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
-                  </div>
+              <el-header style="font-size: 12px; border-bottom: 1px solid #ccc;line-height: 60px;display: flex; justify-content: flex-end " >
 
                   <el-dropdown style="width: 100px;cursor: pointer">
                       <span>朴雄権</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
@@ -45,9 +42,10 @@
                   </div>
 
                   <div style="margin: 10px 0">
-                      <el-button type="primary" @click="handleAdd">新規登録<i class="el-icon-circle-plus-outline"></i></el-button>
-                      <el-button class="ml-5" type="primary" @click="load">検索</el-button>
-                      <el-button class="ml-5" type="primary" @click="reset">クリア</el-button>
+                      <el-button type="primary" @click="handleAdd" icon="el-icon-plus">新規登録</el-button>
+                      <el-button class="ml-5" type="primary" @click="load" icon="el-icon-search">検索</el-button>
+                      <el-button class="ml-5" type="primary" @click="reset" icon="el-icon-refresh-left
+">クリア</el-button>
                   </div>
 
                   <el-table :data="tableData" border stripe :header-cell-class-name="headerBg">
@@ -75,7 +73,7 @@
                       </el-table-column>
                       <el-table-column label="操作">
                           <template  slot-scope="scope">
-                              <el-button type="success" @click="handleEdit(scope.row)">編集<i class="el-icon-edit-outline"></i></el-button>
+                              <el-button type="success" @click="handleEdit(scope.row)" icon="el-icon-edit">編集</el-button>
                               <el-popconfirm
                                   confirm-button-text='はい'
                                   cancel-button-text='いいえ'
@@ -84,7 +82,7 @@
                                   title="この情報は削除でよろしいでしょうか？"
                                   @confirm="handleDelete(scope.row.id)"
                               >
-                                 <el-button type="danger"  slot="reference">削除<i class="el-icon-remove-outline"></i></el-button>
+                                 <el-button type="danger"  slot="reference" icon="el-icon-delete">削除</el-button>
                               </el-popconfirm>
                           </template>
                       </el-table-column>
@@ -137,9 +135,9 @@
                       @size-change="handleSizeChange"
                       @current-change="handleCurrentChange"
                       :current-page="pageNum"
-                      :page-sizes="[2, 5, 10, 20]"
+                      :page-sizes="[4, 6, 10, 20]"
                       :page-size="pageSize"
-                      layout=" prev, pager, next"
+                      layout="total, sizes, prev, pager, next, jumper"
                       :total="total"
                       style="width: 200px;margin: 0 auto"
                   >
@@ -163,7 +161,7 @@ export default {
             form:{},
             total:0,
             pageNum : 1,
-            pageSize:6,
+            pageSize:10,
             name:"",
             department: "",
             age:"",
