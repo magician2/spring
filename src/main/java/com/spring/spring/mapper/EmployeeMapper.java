@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-@Mapper
+//@Mapper
 //データベース　データ転送用
 public interface EmployeeMapper {
     @Select("SELECT * FROM employeedata")

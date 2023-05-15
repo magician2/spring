@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div
-                style="margin: 200px auto; background-color: #fff; width: 350px;  padding: 20px; border-radius: 10px">
+                style="margin: 100px auto; background-color: #fff; width: 350px;  padding: 20px; border-radius: 10px">
 
             <div style="margin: 20px 0; text-align: center; font-size: 24px">
                 <img src="../assets/23649043.png" width="150"/>

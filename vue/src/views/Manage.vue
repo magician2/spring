@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%">
-      <el-container style="height: 80%; ">
+      <el-container style="height: 100%; ">
           <el-aside :width="sideWidth + 'px' " style=" height :100%">
 
             <Aside/>
