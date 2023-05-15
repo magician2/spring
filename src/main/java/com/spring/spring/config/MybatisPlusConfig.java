@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.spring.spring.controller.EmployeeController")
+@MapperScan("com.spring.spring.mapper")
 public class MybatisPlusConfig {
 
     // 最新版

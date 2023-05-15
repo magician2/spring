@@ -31,7 +31,7 @@
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前" v-model="name"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="部署" v-model="age"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="性別" v-model="gender"></el-input>
-                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="生年月日" v-model="dateOfBirth"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="生年月日" v-model="date"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="部署" v-model="department"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="趣味" v-model="hobby"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="最終履歴" v-model="academic"></el-input>
@@ -57,7 +57,7 @@
                       </el-table-column>
                       <el-table-column prop="gender" label="性別">
                       </el-table-column>
-                      <el-table-column prop="dateOfBirth" label="生年月日">
+                      <el-table-column prop="date" label="生年月日">
                       </el-table-column>
                       <el-table-column prop="department" label="部署">
                       </el-table-column>
@@ -103,7 +103,7 @@
                               </el-select>
                           </el-form-item>
                           <el-form-item label="生年月日"  >
-                              <el-input  autocomplete="off" v-model="form.dateOfBirth"></el-input>
+                              <el-input  autocomplete="off" v-model="form.date"></el-input>
                           </el-form-item>
                           <el-form-item label="部署"  >
                               <el-input  autocomplete="off" v-model="form.department"></el-input>
@@ -166,7 +166,7 @@ export default {
             department: "",
             age:"",
             gender: "",
-            dateOfBirth :"",
+            date :"",
             hobby:"",
             mail:"",
             phone:"",
@@ -237,7 +237,7 @@ export default {
                     department: this.department,
                     age:this.age,
                     gender:this.gender,
-                    dateOfBirth:this.dateOfBirth,
+                    date:this.date,
                     hobby:this.hobby,
                     mail:this.mail,
                     phone:this.phone,

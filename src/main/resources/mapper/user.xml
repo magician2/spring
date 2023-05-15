@@ -21,8 +21,8 @@
                 <if test="department != null">
                     department =#{department},
                 </if>
-                <if test="dateOfBirth != null">
-                    dateOfBirth =#{dateOfBirth},
+                <if test="date != null">
+                    date =#{date},
                 </if>
                 <if test="address != null">
                     address = #{address},

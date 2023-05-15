@@ -1,18 +1,22 @@
 package com.spring.spring.entity;
 
-import lombok.AllArgsConstructor;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Data
 //Mysqlへの接続
+@TableName(value = "employeedata")
 public class EmployeeData {
+
+ @TableId("id")
  private Integer id;
  private String name;
  private Integer age;
  private String gender;
  private String department;
- private String dateOfBirth;
+ private String date;
  private String academic;
  private String mail;
  private String hobby;
