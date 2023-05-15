@@ -29,14 +29,13 @@ public class EmployeeController {
     //検索機能(table[employeedata]の全てのデータを抽出)
     @GetMapping
     public List<EmployeeData> index(){
-        List<EmployeeData> all = employeeMapper.findAll();
-        return all;
+        return userService.list();
     }
 
     //url後ろにidを追加することでidカラムを削除
     @DeleteMapping("/{id}")
-    public Integer delete(@PathVariable Integer id){
-        return employeeMapper.deleteById(id);
+    public boolean delete(@PathVariable Integer id){
+        return userService.removeById(id);
     }
 
     //ページネーション
@@ -58,7 +57,6 @@ public class EmployeeController {
                                          @RequestParam(defaultValue = "") String address
                                         ){
         pageNum = (pageNum - 1) * pageSize;
-
         name= "%" + name + "%";
         department = '%' + department + '%';
         age = '%' + age + '%';
