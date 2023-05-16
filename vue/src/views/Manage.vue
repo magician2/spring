@@ -29,7 +29,7 @@
                   <div class="pd-10">
                       <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号" class="ml-5"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前" v-model="name"></el-input>
-                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="部署" v-model="age"></el-input>
+                      <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="年齢" v-model="age"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="性別" v-model="gender"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="生年月日" v-model="date"></el-input>
                       <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="部署" v-model="department"></el-input>
@@ -71,10 +71,11 @@
                       </el-table-column>
                       <el-table-column prop="address" label="住所">
                       </el-table-column>
-                      <el-table-column label="操作">
+                      <el-table-column label="操作" width="180">
                           <template  slot-scope="scope">
                               <el-button type="success" @click="handleEdit(scope.row)" icon="el-icon-edit">編集</el-button>
                               <el-popconfirm
+                                  class="ml-5"
                                   confirm-button-text='はい'
                                   cancel-button-text='いいえ'
                                   icon="el-icon-info"
@@ -91,10 +92,10 @@
                       <el-form label-width="150px" size="small" label-position="top">
                           <el-form-item label="名前"  >
                               <el-input  autocomplete="off" v-model="form.name"></el-input>
+
                           </el-form-item>
                           <el-form-item label="年齢" >
                               <el-input v-model= "form.age" oninput="value=value.replace(/[^0-9]/g,'')" />
-
                           </el-form-item>
                           <el-form-item label="性別" >
                               <el-select  placeholder="性別を選んでください"  v-model="form.gender">
@@ -160,6 +161,7 @@ export default {
             tableData: [],
             form:{},
             total:0,
+            sideWidth:250,
             pageNum : 1,
             pageSize:10,
             name:"",
@@ -246,7 +248,7 @@ export default {
                 }
             } ).then(res => {
                 console.log(res)
-                this.tableData = res.data
+                this.tableData = res.records
                 this.total = res.total
             }
             )
@@ -281,5 +283,6 @@ export default {
 <style>
 .headerBg{
     background: #83c5be!important;
+    text-align: center!important;
 }
 </style>
