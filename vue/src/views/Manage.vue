@@ -153,7 +153,6 @@
 <script>
 
 // @ is an alias to /src
-import request from "@/utils/request";
 import Aside from "../components/Aside.vue"
 export default {
     data(){
@@ -192,7 +191,7 @@ export default {
           this.form = {}
       },
       save(){
-        request.post("/employeePage",this.form).then(res=>{
+        this.request.post("/employeedata",this.form).then(res=>{
             if(res){
                 this.$message.success("yes")
             }else {
@@ -208,7 +207,7 @@ export default {
           this.dialogFormVisible = true
       },
       handleDelete(id){
-        request.delete("/employeePage/" + id).then(res=>{
+        this.request.delete("/employeedata/" + id).then(res=>{
             if(res){
                 this.$message.success("yes")
             }else {
@@ -231,7 +230,7 @@ export default {
           }
       },
       load(){
-            request.get("/employeePage/page?",{
+            this.request.get("/employeedata/page?",{
                 params:{
                     pageNum: this.pageNum,
                     pageSize:this.pageSize,

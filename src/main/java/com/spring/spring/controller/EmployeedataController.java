@@ -105,7 +105,7 @@ public Page<Employeedata> findPage(@RequestParam Integer pageNum,
         if(!"".equals(img_url)){
                 queryWrapper.like("img_url", img_url);
         }
-        queryWrapper.orderByDesc("id");
+        queryWrapper.orderByAsc("id");
         return employeedataService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
 
