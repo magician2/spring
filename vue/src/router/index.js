@@ -10,10 +10,11 @@ const routes = [
     component: () => import('../views/Manage.vue'),
     children:[
       {
-        path: '/',
-        name: 'Manage',
-        component: () => import('../views/Manage.vue'),
-      }
+        path: 'employee',
+        name: 'Employee',
+        component: () => import('../views/Employee.vue'),
+      },
+
     ]
   },
   {
