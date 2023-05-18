@@ -198,7 +198,6 @@ export default defineComponent({
                     address:this.address,
                 }
             }).then(res => {
-                    console.log(res)
                     this.tableData = res.records
                     this.total = res.total
                 }
