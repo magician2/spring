@@ -7,15 +7,8 @@
           </el-aside>
           <el-container>
 
-              <el-header style="font-size: 12px; border-bottom: 1px solid #ccc;line-height: 60px;display: flex; justify-content: flex-end " >
-
-                  <el-dropdown style="width: 100px;cursor: pointer">
-                      <span>朴雄権</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
-                      <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item>個人情報</el-dropdown-item>
-                          <el-dropdown-item>ログアウト</el-dropdown-item>
-                      </el-dropdown-menu>
-                  </el-dropdown>
+              <el-header style="height: 60px">
+                    <Header/>
               </el-header>
               <el-main>
                   <router-view/>
@@ -30,7 +23,8 @@
 
 // @ is an alias to /src
 import Aside from "../components/Aside.vue"
-import Employee from "@/views/Employee.vue";
+import Header from "@/components/Header.vue";
+
 export default {
     data(){
         return {
@@ -41,7 +35,8 @@ export default {
         }
     },
     components:{
-      Aside
+      Aside,
+      Header
     },
     methods : {
 

@@ -1,9 +1,6 @@
 <template>
 <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }">TOP</el-breadcrumb-item>
-        <el-breadcrumb-item>社員管理</el-breadcrumb-item>
-    </el-breadcrumb>
+
 
     <div class="pd-10">
         <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号" class="ml-5"></el-input>
