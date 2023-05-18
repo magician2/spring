@@ -7,6 +7,7 @@ import './assets/globle.css'
 import request from "@/utils/request";
 import lang from 'element-ui/lib/locale/lang/ja'
 import locale from 'element-ui/lib/locale'
+import store from './store'
 
 Vue.use(ElementUI,{size: "mini"},{locale});
 
@@ -18,5 +19,6 @@ Vue.prototype.request = request
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
