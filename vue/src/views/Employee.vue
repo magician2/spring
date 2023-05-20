@@ -3,25 +3,31 @@
 
 
     <div class="pd-10">
-        <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号" class="ml-5"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前" v-model="name"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="年齢" v-model="age"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="性別" v-model="gender"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="生年月日" v-model="date"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="部署" v-model="department"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="趣味" v-model="hobby"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="最終履歴" v-model="academic"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="メールアドレス" v-model="mail"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="住所" v-model="address"></el-input>
-        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="電話番号" v-model="phone"></el-input>
-
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-collection-tag" placeholder="社員番号" class="ml-5"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="名前" v-model="name"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="年齢" v-model="age"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="性別" v-model="gender"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="生年月日" v-model="date"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="部署" v-model="department"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="趣味" v-model="hobby"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="最終履歴" v-model="academic"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="メールアドレス" v-model="mail"></el-input>-->
+<!--        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="住所" v-model="address"></el-input>-->
+        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="電話番号" v-model="gender" v-if="other"></el-input>
+        <el-select v-model="value" placeholder="请选择" @change="getValue">
+            <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+        </el-select>
     </div>
 
     <div style="margin: 10px 0">
         <el-button type="primary" @click="handleAdd" icon="el-icon-plus">新規登録</el-button>
-        <el-button class="ml-5" type="primary" @click="load" icon="el-icon-search">検索</el-button>
-        <el-button class="ml-5" type="primary" @click="reset" icon="el-icon-refresh-left
-">クリア</el-button>
+        <el-button class="ml-5" type="primary" @click="load" icon="el-icon-search"><検></検>索</el-button>
+        <el-button class="ml-5" type="primary" @click="reset" icon="el-icon-refresh-left">クリア</el-button>
     </div>
 
     <el-table :data="tableData" border stripe :header-cell-class-name="headerBg">
@@ -145,6 +151,19 @@ export default defineComponent({
             address:"",
             dialogFormVisible: false,
             headerBg: 'headerBg',
+            oldOptions : [],
+            other : false,
+            options: [{
+                value: 'name',
+                label: '名前'
+            }, {
+                value: 'department',
+                label: '部署'
+            }, {
+                value: 'gender',
+                label: '性別'
+            }],
+            value: ''
         }
     },
     created() {
@@ -161,6 +180,10 @@ export default defineComponent({
                 this.load()
                 this.dialogFormVisible = false
             })
+        },
+        dataFilter(val){
+          this.value = val;
+            console.log(this.value)
         },
         handleEdit(row){
             this.form = row
@@ -181,6 +204,36 @@ export default defineComponent({
                 this.load()
             })
         },
+        findOne(id){
+          this.request.get("/employeedata/",{
+              params:{
+                  pageNum: this.pageNum,
+                  pageSize:this.pageSize,
+                  name:this.name,
+                  department: this.department,
+                  age:this.age,
+                  gender:this.gender,
+                  date:this.date,
+                  hobby:this.hobby,
+                  mail:this.mail,
+                  phone:this.phone,
+                  academic:this.academic,
+                  address:this.address,
+              }
+          }).then(res=>{
+              if(res){
+                  this.$message.success(("GET"))
+              }
+              else {
+                this.$message.error("Not GET")
+              }
+          })
+        },
+        getValue(){
+            console.log(this.value)
+            this.other = true
+            this.phone = this.value;
+        },
         load(){
             this.request.get("/employeedata/page?",{
                 params:{
@@ -200,6 +253,7 @@ export default defineComponent({
             }).then(res => {
                     this.tableData = res.records
                     this.total = res.total
+                console.log(this.tableData)
                 }
             )
         },

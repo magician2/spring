@@ -1,7 +1,9 @@
 package com.spring.spring.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.spring.spring.controller.dto.UserDTO;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,6 +28,17 @@ public class EmployeedataController {
 @Resource
 private IEmployeedataService employeedataService;
 
+
+@PostMapping("/login")
+public boolean login(@RequestBody UserDTO userDTO){
+        String userName = userDTO.getUsername();
+        String passWord = userDTO.getPassword();
+        if(StrUtil.isBlank(userName) || StrUtil.isBlank(passWord)){
+                return false;
+        }
+
+        return employeedataService.login(userDTO);
+}
 //新規とアップデート
 @PostMapping
 public boolean save(@RequestBody Employeedata employeedata) {

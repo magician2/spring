@@ -1,9 +1,13 @@
 package com.spring.spring.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,5 +52,11 @@ import lombok.Setter;
 
     private String katakana;
 
+    private String username;
 
+  @TableField(exist = false)
+    private String password;
+
+  @TableLogic
+  private Integer del_flg;
 }
