@@ -67,7 +67,7 @@ export default {
             // });
             this.$refs['userForm'].validate((valid) => {
                 if (valid) {
-                    this.request.post("/employeedata/login", this.user).then(res => {
+                    this.request.post("/login", this.user).then(res => {
                         if (!res) {
                             this.$message.error("Wrong")
                         } else {

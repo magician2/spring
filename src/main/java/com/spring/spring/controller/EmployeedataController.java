@@ -29,16 +29,16 @@ public class EmployeedataController {
 private IEmployeedataService employeedataService;
 
 
-@PostMapping("/login")
-public boolean login(@RequestBody UserDTO userDTO){
-        String userName = userDTO.getUsername();
-        String passWord = userDTO.getPassword();
-        if(StrUtil.isBlank(userName) || StrUtil.isBlank(passWord)){
-                return false;
-        }
-
-        return employeedataService.login(userDTO);
-}
+//@PostMapping("/login")
+//public boolean login(@RequestBody UserDTO userDTO){
+//        String userName = userDTO.getUsername();
+//        String passWord = userDTO.getPassword();
+//        if(StrUtil.isBlank(userName) || StrUtil.isBlank(passWord)){
+//                return false;
+//        }
+//
+//        return employeedataService.login(userDTO);
+//}
 //新規とアップデート
 @PostMapping
 public boolean save(@RequestBody Employeedata employeedata) {
