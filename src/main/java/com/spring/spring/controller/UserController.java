@@ -3,6 +3,8 @@ package com.spring.spring.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.spring.spring.common.Constants;
+import com.spring.spring.common.Result;
 import com.spring.spring.entity.User;
 import com.spring.spring.entity.Employeedata;
 import com.spring.spring.service.IEmployeedataService;
@@ -22,12 +24,13 @@ public class UserController {
     @Resource
     private IUserService userService;
     @PostMapping
-    public boolean login(@RequestBody User user){
+    public Result login(@RequestBody User user){
         String userName = user.getUsername();
         String passWord = user.getPassword();
         if(StrUtil.isBlank(userName) || StrUtil.isBlank(passWord)){
-            return false;
+            return Result.error(Constants.CODE_400,"ユーザー名またはパスワードが正しくありません");
         }
-        return userService.login(user);
+        User dto = userService.login(user);
+        return Result.success(dto);
     }
 }

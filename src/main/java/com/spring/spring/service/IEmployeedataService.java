@@ -1,6 +1,5 @@
 package com.spring.spring.service;
 
-import com.spring.spring.controller.dto.UserDTO;
 import com.spring.spring.entity.Employeedata;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,6 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IEmployeedataService extends IService<Employeedata> {
 
-    boolean login(UserDTO userDTO);
 
 }

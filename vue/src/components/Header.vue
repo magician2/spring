@@ -6,9 +6,11 @@
       </el-breadcrumb>
       <el-dropdown style="width: 100px;cursor: pointer">
 
-          <span>管理人</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
-          <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>ログアウト</el-dropdown-item>
+          <span>{{user.name}}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
+          <el-dropdown-menu slot="dropdown" style="width: 100px;text-align: center">
+              <el-dropdown-item style="font-size: 14px;padding: 5px 0">
+                  <span style="text-decoration: none" @click="logout">ログアウト</span>
+              </el-dropdown-item>
           </el-dropdown-menu>
       </el-dropdown>
 
@@ -25,11 +27,19 @@ export default defineComponent({
     }},
     data(){
             return{
+                user:localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
             }
     },
     watch:{
         currentPathName(newVal,oldVal){
             console.log(newVal)
+        }
+    },
+    methods:{
+        logout(){
+            this.$router.push("/Login")
+            localStorage.removeItem("user")
+            this.$message.success("ログアウトしました")
         }
     }
 

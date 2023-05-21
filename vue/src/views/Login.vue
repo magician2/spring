@@ -44,34 +44,14 @@ export default {
     },
     methods: {
         login() {
-            // this.$refs['userForm'].validate((valid) => {
-            //     if (valid) {  // 表单校验合法
-            //         this.request.post("/employeedata/login", this.user).then(res => {
-            //             if (res.code === '200') {
-            //                 localStorage.setItem("user", JSON.stringify(res.data))  // 存储用户信息到浏览器
-            //                 localStorage.setItem("menus", JSON.stringify(res.data.menus))  // 存储用户信息到浏览器
-            //                 // 动态设置当前用户的路由
-            //                 setRoutes()
-            //                 this.$message.success("登录成功")
-            //
-            //                 if (res.data.role === 'ROLE_STUDENT') {
-            //                     this.$router.push("/")
-            //                 } else {
-            //                     this.$router.push("/")
-            //                 }
-            //             } else {
-            //                 this.$message.error(res.msg)
-            //             }
-            //         })
-            //     }
-            // });
             this.$refs['userForm'].validate((valid) => {
                 if (valid) {
                     this.request.post("/login", this.user).then(res => {
-                        if (!res) {
-                            this.$message.error("Wrong")
-                        } else {
+                        if (res.code === '200') {
+                            localStorage.setItem("user",JSON.stringify(res.data))
                             this.$router.push("/")
+                        } else {
+                            this.$message.error(res.msg)
                         }
                     })
                 }
