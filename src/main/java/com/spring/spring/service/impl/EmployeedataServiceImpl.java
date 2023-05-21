@@ -20,14 +20,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeedataServiceImpl extends ServiceImpl<EmployeedataMapper, Employeedata> implements IEmployeedataService {
 
-    @Override
-    public boolean login(UserDTO userDTO) {
-        QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username",userDTO.getUsername());
-        queryWrapper.eq("password",userDTO.getPassword());
-        Employeedata one = getOne(queryWrapper);
-        return one != null;
-    }
 
 
 
