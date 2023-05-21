@@ -44,7 +44,7 @@ import lombok.Setter;
 
     private String hobby;
 
-    private String imgUrl;
+    private String imgurl;
 
     private String phone;
 

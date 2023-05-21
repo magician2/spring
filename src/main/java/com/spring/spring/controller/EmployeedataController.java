@@ -82,7 +82,7 @@ public Page<Employeedata> findPage(@RequestParam Integer pageNum,
                                    @RequestParam(defaultValue = "") String hobby,
                                    @RequestParam(defaultValue = "") String phone,
                                    @RequestParam(defaultValue = "") String address,
-                                   @RequestParam(defaultValue = "") String img_url
+                                   @RequestParam(defaultValue = "") String imgUrl
                                    ) {
         QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
         if(!"".equals(name)){
@@ -115,8 +115,8 @@ public Page<Employeedata> findPage(@RequestParam Integer pageNum,
         if(!"".equals(address)){
                 queryWrapper.like("address", address);
         }
-        if(!"".equals(img_url)){
-                queryWrapper.like("img_url", img_url);
+        if(!"".equals(imgUrl)){
+                queryWrapper.like("imgUrl", imgUrl);
         }
         queryWrapper.orderByAsc("id");
         return employeedataService.page(new Page<>(pageNum, pageSize), queryWrapper);
