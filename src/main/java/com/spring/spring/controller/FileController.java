@@ -24,10 +24,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/file")
 //ファイルアップロード　インターフェース
-public class FileController {
-    @Value("${files.upload.path}")
-    private String fileuploadPath;
-    @Resource
+    public class FileController {
+        @Value("${files.upload.path}")
+        private String fileuploadPath;
+        @Resource
     private FileMapper fileMapper;
     /**
      *
