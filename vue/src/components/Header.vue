@@ -1,12 +1,11 @@
 <template>
-  <div style="display: flex;height: 60px;justify-content: space-between;line-height: 60px;background-color: #83c5be">
-      <el-breadcrumb separator-class="el-icon-arrow-right" style="line-height: 60px">
-          <el-breadcrumb-item :to=" '/' ">TOP</el-breadcrumb-item>
-          <el-breadcrumb-item>{{currentPathName}}</el-breadcrumb-item>
+  <div style="display: flex;height: 60px;justify-content: space-between;line-height: 60px;background-color: #2C3E50;padding: 0 10px">
+      <el-breadcrumb separator-class="el-icon-arrow-right" style="line-height: 60px;">
+          <el-breadcrumb-item :to=" '/home' " style="color: white"><p style="color: white">ホーム></p></el-breadcrumb-item>
+          <el-breadcrumb-item ><p style="color: white">{{currentPathName}}</p></el-breadcrumb-item>
       </el-breadcrumb>
       <el-dropdown style="width: 100px;cursor: pointer">
-
-          <span>{{user.name}}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
+          <span style="color: white">{{user.name}}</span><i class="el-icon-arrow-down" style="margin-left: 5px;color: white"></i>
           <el-dropdown-menu slot="dropdown" style="width: 100px;text-align: center">
               <el-dropdown-item style="font-size: 14px;padding: 5px 0">
                   <span style="text-decoration: none" @click="logout">ログアウト</span>
@@ -45,6 +44,11 @@ export default defineComponent({
 
 })
 </script>
-<style scoped>
-
+<style>
+.el-breadcrumb__inner{
+       color: white;
+    }
+.el-breadcrumb__separator{
+    color: white;
+}
 </style>

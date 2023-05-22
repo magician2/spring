@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" router>
+    <div style="height: 100%">
+        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" router style="height: 100%">
             <el-menu-item index="/home">
                 <template slot="title">
                     <i class="el-icon-house"></i>
@@ -25,7 +25,6 @@
 </template>
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
     min-height: 400px;
 }
 </style>

@@ -3,8 +3,8 @@
         <div
                 style="margin: 100px auto; background-color: #fff; width: 350px;  padding: 20px; border-radius: 10px">
 
-            <div style="margin: 20px 0; text-align: center; font-size: 24px">
-                <img src="../assets/23649043.png" width="150"/>
+            <div style="margin: 20px 0 40px 0; text-align: center; font-size: 16px">
+                <h1>社員管理システム</h1>
             </div>
             <el-form :model="user" :rules="rules" ref="userForm">
                 <el-form-item prop="username">
@@ -49,7 +49,7 @@ export default {
                     this.request.post("/login", this.user).then(res => {
                         if (res.code === '200') {
                             localStorage.setItem("user",JSON.stringify(res.data))
-                            this.$router.push("/")
+                            this.$router.push("/home")
                         } else {
                             this.$message.error(res.msg)
                         }

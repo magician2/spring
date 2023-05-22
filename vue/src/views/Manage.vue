@@ -1,16 +1,15 @@
 <template>
   <div style="height: 100%">
       <el-container style="height: 100%; ">
-          <el-aside :width="sideWidth + 'px' " style=" height :100%">
 
-            <Aside/>
-          </el-aside>
-          <el-container>
-
-              <el-header style="height: 60px">
-                    <Header/>
-              </el-header>
-              <el-main>
+          <el-header style="height: 60px">
+              <Header/>
+          </el-header>
+          <el-container style="width: 100%">
+              <el-aside  style=" height :80%;width: 15%;">
+                  <Aside/>
+              </el-aside>
+              <el-main style="padding: 0 20px">
                   <router-view/>
               </el-main>
           </el-container>
@@ -30,7 +29,6 @@ export default {
         return {
 
             collapseBtnClass : 'el-icon-s-fold',
-            sideWidth:250,
 
         }
     },
@@ -40,19 +38,6 @@ export default {
     },
     methods : {
 
-        collapse(){
-            this.isCollapse = !this.isCollapse
-            if(this.isCollapse){
-                this.sideWidth = 64
-                this.collapseBtnClass = 'el-icon-s-unfold'
-                this.logoTextShow = !this.logoTextShow
-            }
-            else {
-                this.sideWidth = 250
-                this.collapseBtnClass = 'el-icon-s-fold'
-                this.logoTextShow = !this.logoTextShow
-            }
-        },
 
     }
 }
