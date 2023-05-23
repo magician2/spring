@@ -50,10 +50,10 @@ import lombok.Setter;
 
     private String address;
 
-    private String katakana;
-
     private String username;
 
+
+    private String zipcode;
   @TableField(exist = false)
     private String password;
 

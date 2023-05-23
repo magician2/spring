@@ -28,17 +28,6 @@ public class EmployeedataController {
 @Resource
 private IEmployeedataService employeedataService;
 
-
-//@PostMapping("/login")
-//public boolean login(@RequestBody UserDTO userDTO){
-//        String userName = userDTO.getUsername();
-//        String passWord = userDTO.getPassword();
-//        if(StrUtil.isBlank(userName) || StrUtil.isBlank(passWord)){
-//                return false;
-//        }
-//
-//        return employeedataService.login(userDTO);
-//}
 //新規とアップデート
 @PostMapping
 public boolean save(@RequestBody Employeedata employeedata) {
@@ -51,12 +40,6 @@ public Boolean delete(@PathVariable Integer id) {
         return employeedataService.removeById(id);
         }
 
-//複数削除
-//@PostMapping("/del/batch")
-//public boolean deleteBatch(@RequestBody List<Integer> ids) {
-//        return employeedataService.removeByIds(ids);
-//        }
-//テータ抽出
 @GetMapping
 public List<Employeedata> findAll() {
         return employeedataService.list();
@@ -68,7 +51,7 @@ public Employeedata findOne(@PathVariable Integer id) {
         return employeedataService.getById(id);
         }
 
-// ページネーション
+// ページネーション検索機能
 @GetMapping("/page")
 public Page<Employeedata> findPage(@RequestParam Integer pageNum,
                                    @RequestParam Integer pageSize,
@@ -82,7 +65,8 @@ public Page<Employeedata> findPage(@RequestParam Integer pageNum,
                                    @RequestParam(defaultValue = "") String hobby,
                                    @RequestParam(defaultValue = "") String phone,
                                    @RequestParam(defaultValue = "") String address,
-                                   @RequestParam(defaultValue = "") String imgUrl
+                                   @RequestParam(defaultValue = "") String imgUrl,
+                                   @RequestParam(defaultValue = "") String zipcode
                                    ) {
         QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
         if(!"".equals(name)){
@@ -117,6 +101,9 @@ public Page<Employeedata> findPage(@RequestParam Integer pageNum,
         }
         if(!"".equals(imgUrl)){
                 queryWrapper.like("imgUrl", imgUrl);
+        }
+        if(!"".equals(zipcode)){
+                queryWrapper.like("zipcode", zipcode);
         }
         return employeedataService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }

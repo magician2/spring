@@ -8,6 +8,7 @@ import request from "@/utils/request";
 import lang from 'element-ui/lib/locale/lang/ja'
 import locale from 'element-ui/lib/locale'
 import store from './store'
+import { Core as YubinBangoCore } from 'yubinbango-core'
 
 Vue.use(ElementUI,{size: "mini"},{locale});
 
@@ -16,6 +17,7 @@ locale.use(lang)
 
 Vue.config.productionTip = false
 Vue.prototype.request = request
+
 
 new Vue({
   router,
