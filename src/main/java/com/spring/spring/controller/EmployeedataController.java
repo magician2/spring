@@ -106,7 +106,7 @@ public Page<Employeedata> findPage(@RequestParam Integer pageNum,
                 queryWrapper.like("zipcode", zipcode);
         }
         return employeedataService.page(new Page<>(pageNum, pageSize), queryWrapper);
-        }
+}
 
 }
 
