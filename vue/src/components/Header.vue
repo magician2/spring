@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex;height: 60px;justify-content: space-between;line-height: 60px;background-color: #2C3E50;padding: 0 10px">
-      <el-breadcrumb separator-class="el-icon-arrow-right" style="line-height: 60px;">
-          <el-breadcrumb-item :to=" '/home' " style="color: white"><p style="color: white">ホーム></p></el-breadcrumb-item>
+      <el-breadcrumb separator-class="el-icon-arrow-right" style="line-height: 60px;margin-left: 30px">
+<!--          <el-breadcrumb-item :to=" '/employee' " style="color: white"><p style="color: white">ホーム></p></el-breadcrumb-item>-->
           <el-breadcrumb-item ><p style="color: white">{{currentPathName}}</p></el-breadcrumb-item>
       </el-breadcrumb>
       <el-dropdown style="width: 100px;cursor: pointer">

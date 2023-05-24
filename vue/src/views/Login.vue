@@ -49,7 +49,7 @@ export default {
                     this.request.post("/login", this.user).then(res => {
                         if (res.code === '200') {
                             localStorage.setItem("user",JSON.stringify(res.data))
-                            this.$router.push("/home")
+                            this.$router.push("/employee")
                         } else {
                             this.$message.error(res.msg)
                         }

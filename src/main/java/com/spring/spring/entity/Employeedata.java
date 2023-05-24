@@ -30,8 +30,6 @@ import lombok.Setter;
 
     private String name;
 
-    private Integer age;
-
     private String gender;
 
     private String department;

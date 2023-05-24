@@ -72,9 +72,6 @@ public Page<Employeedata> findPage(@RequestParam Integer pageNum,
         if(!"".equals(name)){
                 queryWrapper.like("name", name);
         }
-        if(!"".equals(age)){
-                queryWrapper.like("age", age);
-        }
         if(!"".equals(gender)){
                 queryWrapper.like("gender", gender);
         }

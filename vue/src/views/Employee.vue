@@ -6,7 +6,6 @@
                 <el-option label="名前" value="name"></el-option>
                 <el-option label="部署" value="department"></el-option>
                 <el-option label="性別" value="gender"></el-option>
-                <el-option label="年齢" value="age"></el-option>
                 <el-option label="電話番号" value="phone"></el-option>
                 <el-option label="最終履歴" value="academic"></el-option>
                 <el-option label="メールアドレス" value="mail"></el-option>
@@ -39,24 +38,14 @@
         </el-table-column >
         <el-table-column prop="name" label="名前" width="200" sortable>
         </el-table-column>
-        <el-table-column prop="age" label="年齢" width="80" sortable>
-        </el-table-column>
         <el-table-column prop="gender" label="性別" sortable width="100" sortable>
         </el-table-column>
-<!--        <el-table-column prop="date" label="生年月日">-->
-<!--        </el-table-column>-->
         <el-table-column prop="department" label="部署" width="120" sortable>
         </el-table-column>
-<!--        <el-table-column prop="hobby" label="趣味">-->
-<!--        </el-table-column>-->
         <el-table-column prop="mail" label="メールアドレス" sortable>
         </el-table-column>
         <el-table-column prop="phone" label="電話番号" width="120" sortable>
         </el-table-column>
-<!--        <el-table-column prop="academic" label="最終履歴">-->
-<!--        </el-table-column>-->
-<!--        <el-table-column prop="address" label="住所">-->
-<!--        </el-table-column>-->
         <el-table-column label="操作" width="180">
             <template  slot-scope="scope">
                 <el-button type="success" @click="handleEdit(scope.row)" icon="el-icon-edit">編集</el-button>
@@ -96,6 +85,7 @@
                     <el-form-item label="名前"  prop="name">
                         <el-input  autocomplete="off" v-model="form.name"></el-input>
                     </el-form-item>
+                    <p>{{form.name}}</p>
                     <el-form-item label="性別" prop="gender">
                         <el-select  placeholder="性別を選んでください"  v-model="form.gender">
                             <el-option label="男性" value="男性"></el-option>
@@ -128,7 +118,6 @@
                     <el-form-item label="電話番号"  prop="phone">
                         <el-input  autocomplete="off" v-model="form.phone" @blur="checkBlur($event)"></el-input>
                     </el-form-item>
-
                     <el-form-item label="最終学歴"  >
                         <el-input  autocomplete="off" v-model="form.academic"></el-input>
                     </el-form-item>
@@ -140,7 +129,8 @@
                         <el-button style="font-size: 12px" class="ml-5" @click="addCheck">郵便番号から住所を検索</el-button>
                     </el-form-item>
                     <el-form-item label="住所" >
-                        <el-input v-model="form.address" ></el-input>
+                        <el-input  v-model="form.address" ></el-input>
+                        <p>{{form.address}}</p>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -175,15 +165,14 @@ export default defineComponent({
             selectValue:"",
             activeName: '1',
             tableData: [],
-            info :null,
-            form:{address4:""},
+            info :{},
+            form:{address: ''},
             dialogTitle:"ddd",
             total:0,
             pageNum : 1,
             pageSize:10,
             name:"",
             department: "",
-            age:"",
             gender: "",
             date :"",
             hobby:"",
@@ -245,18 +234,22 @@ export default defineComponent({
             if(this.form.zipcode)
             axios.get('https://zipcloud.ibsnet.co.jp/api/search?', {
                 params:{
-                    zipcode: this.form.zipcode
-                }}).then(res=>{
-                    this.info = res.data.results
+                zipcode: this.form.zipcode
+            }}).then(res=>{
+                        this.info = res.data.results
                 this.address1 = this.info[0].address1
                 this.address2 = this.info[0].address2
                 this.address3 = this.info[0].address3
                 this.postaddress = this.address1 + this.address2 + this.address3
-                if(this.form.address == "" || this.form.address == null) {
+                // this.$nextTick(()=>{
+                //     this.form.address = this.postaddress
+                //     console.log("postaddress",this.postaddress)
+                // }
+                if(this.form.address === '') {
                     this.form.address = this.postaddress
                 }
-            console.log(this.form.address)
-                console.log(this.postaddress)
+                    console.log(this.form)
+                this.$forceUpdate();
         })
         },
         //電話番号にハイフン入力した際の警告
@@ -302,9 +295,10 @@ export default defineComponent({
         },
         handleAdd(row){
             this.form = row
+            this.form = {address: ''}
             console.log(this.form)
             this.dialogFormVisible = true
-            this.form = {}
+
             this.dialogTitle= "新規登録"
         },
         handleDelete(id){
@@ -332,7 +326,6 @@ export default defineComponent({
                     pageSize:this.pageSize,
                     name:this.name,
                     department: this.department,
-                    age:this.age,
                     gender:this.gender,
                     date:this.date,
                     hobby:this.hobby,
@@ -349,13 +342,12 @@ export default defineComponent({
         reset(){
             this.name = "",
                 this.department = "",
-                this.age = "",
                 this.gender = "",
                 this.hobby = "",
                 this.mail= "",
                 this.phone = "",
                 this.academic = "",
-                this.address = ""
+                this.address = "",
             this.load()
         },
         handleCurrentChange(pageNum){
