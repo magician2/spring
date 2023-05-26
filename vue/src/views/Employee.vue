@@ -2,26 +2,21 @@
 <div>
     <div class="pd-10 ml-5" style="margin: 20px 0;">
         <div>
-            <el-select  placeholder="検索範囲を選んでください"  v-model="selectValue" style="margin: 0 5px" @change="selected">
-                <el-option label="名前" value="name"></el-option>
-                <el-option label="部署" value="department"></el-option>
-                <el-option label="性別" value="gender"></el-option>
-                <el-option label="電話番号" value="phone"></el-option>
-                <el-option label="最終履歴" value="academic"></el-option>
-                <el-option label="メールアドレス" value="mail"></el-option>
-                <el-option label="住所" value="address"></el-option>
-            </el-select>
+<!--            <el-select  placeholder="検索範囲を選んでください"  v-model="selectValue" style="margin: 0 5px" @change="selected">-->
+<!--                <el-option label="名前" value="name"></el-option>-->
+<!--                <el-option label="部署" value="department"></el-option>-->
+<!--                <el-option label="性別" value="gender"></el-option>-->
+<!--                <el-option label="電話番号" value="phone"></el-option>-->
+<!--                <el-option label="最終履歴" value="academic"></el-option>-->
+<!--                <el-option label="メールアドレス" value="mail"></el-option>-->
+<!--                <el-option label="住所" value="address"></el-option>-->
+<!--            </el-select>-->
             <el-input style="width: 200px;margin: 0 5px"
-                      suffix-icon="el-icon-caret-bottom"
-                      v-model="name"></el-input>
+
+                      v-model="search"></el-input>
             <el-button type="primary" @click="load" icon="el-icon-search">検索</el-button>
             <el-button class="ml-5" type="primary" @click="reset" icon="el-icon-refresh-left">クリア</el-button>
         </div>
-        <el-collapse  accordion style="width: 400px">
-            <el-collapse-item title="" name="1" title="条件絞り込み" style="">
-                    <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="住所" v-model="address"></el-input>
-            </el-collapse-item>
-        </el-collapse>
 <!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="年齢" v-model="age"></el-input>-->
 <!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="生年月日" v-model="date"></el-input>-->
 <!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="趣味" v-model="hobby"></el-input>-->
@@ -82,17 +77,17 @@
                     </el-upload>
                 </el-col>
                 <el-col :span="3" :offset="3">
-                    <el-form-item label="名前"  prop="name">
+                    <el-form-item label="名前"  prop="name" class="input_box">
                         <el-input  autocomplete="off" v-model="form.name"></el-input>
                     </el-form-item>
                     <p>{{form.name}}</p>
-                    <el-form-item label="性別" prop="gender">
+                    <el-form-item label="性別" prop="gender" class="input_box">
                         <el-select  placeholder="性別を選んでください"  v-model="form.gender">
                             <el-option label="男性" value="男性"></el-option>
                             <el-option label="女性" value="女性"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="部署"  prop="department">
+                    <el-form-item label="部署"  prop="department" class="input_box">
                         <el-select  placeholder="部署を選んでください"  v-model="form.department">
                             <el-option label="SS事業部" value="SS事業部"></el-option>
                             <el-option label="営業部" value="営業部"></el-option>
@@ -103,7 +98,7 @@
                             <el-option label="情報システム管理部" value="情報システム管理部"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="生年月日"  prop="date">
+                    <el-form-item label="生年月日"  prop="date" class="input_box">
                         <div class="block">
                             <el-date-picker
                                 v-model="form.date"
@@ -112,23 +107,23 @@
                             </el-date-picker>
                         </div>
                     </el-form-item>
-                    <el-form-item label="趣味" >
+                    <el-form-item label="趣味" class="input_box">
                         <el-input  autocomplete="off" v-model="form.hobby"></el-input>
                     </el-form-item>
-                    <el-form-item label="電話番号"  prop="phone">
+                    <el-form-item label="電話番号"  prop="phone" class="input_box">
                         <el-input  autocomplete="off" v-model="form.phone" @blur="checkBlur($event)"></el-input>
                     </el-form-item>
-                    <el-form-item label="最終学歴"  >
+                    <el-form-item label="最終学歴"  class="input_box">
                         <el-input  autocomplete="off" v-model="form.academic"></el-input>
                     </el-form-item>
-                    <el-form-item label="メールアドレス" prop="mail">
+                    <el-form-item label="メールアドレス" prop="mail" class="input_box">
                         <el-input  autocomplete="off" v-model="form.mail"></el-input>
                     </el-form-item>
-                    <el-form-item label="郵便番号" prop="zipcode">
+                    <el-form-item label="郵便番号" prop="zipcode" class="input_box">
                         <el-input v-model="form.zipcode"></el-input>
                         <el-button style="font-size: 12px" class="ml-5" @click="addCheck">郵便番号から住所を検索</el-button>
                     </el-form-item>
-                    <el-form-item label="住所" >
+                    <el-form-item label="住所" class="input_box">
                         <el-input  v-model="form.address" ></el-input>
                         <p>{{form.address}}</p>
                     </el-form-item>
@@ -187,6 +182,7 @@ export default defineComponent({
             address3:"",
             address4:"",
             postaddress:"",
+            search:"",
             dialogFormVisible: false,
             headerBg: 'headerBg',
             imgIf: false,
@@ -248,7 +244,6 @@ export default defineComponent({
                 if(this.form.address === '') {
                     this.form.address = this.postaddress
                 }
-                    console.log(this.form)
                 this.$forceUpdate();
         })
         },
@@ -265,7 +260,7 @@ export default defineComponent({
             this.$refs.form.validate((valid) => {
                 if(valid){
                     this.request.post("/employeedata",this.form).then(res=>{
-                        if(res){
+                        if(res.data){
                             this.$message.success("登録完了")
                         }
                         this.load()
@@ -289,21 +284,19 @@ export default defineComponent({
         },
         handleEdit(row){
             this.form = row
-            console.log(row)
             this.dialogFormVisible = true
             this.dialogTitle = "編集"
         },
         handleAdd(row){
             this.form = row
             this.form = {address: ''}
-            console.log(this.form)
             this.dialogFormVisible = true
 
             this.dialogTitle= "新規登録"
         },
         handleDelete(id){
             this.request.delete("/employeedata/" + id).then(res=>{
-                if(res){
+                if(res.data){
                     this.$message.success("削除完成しました")
                 }else {
                     this.$message.error("削除が完成していません")
@@ -332,10 +325,11 @@ export default defineComponent({
                     mail:this.mail,
                     phone:this.phone,
                     academic:this.academic,
+                    search:this.search
                 }
             }).then(res => {
-                    this.tableData = res.records
-                    this.total = res.total
+                    this.tableData = res.data.records
+                    this.total = res.data.total
                 }
             )
         },
@@ -370,9 +364,6 @@ export default defineComponent({
     text-align: center!important;
     border-top: 4px  solid #83c5be!important;
 }
-.el-form-item{
-    width: 360px;
-}
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
@@ -395,5 +386,8 @@ export default defineComponent({
 .avatar {
     height: 300px;
     display: block;
+}
+.input_box{
+    width: 300px;
 }
 </style>

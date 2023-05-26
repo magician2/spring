@@ -1,12 +1,11 @@
 <template>
     <div class="wrapper">
-        <div
-                style="margin: 100px auto; background-color: #fff; width: 350px;  padding: 20px; border-radius: 10px">
-
-            <div style="margin: 20px 0 40px 0; text-align: center; font-size: 16px">
-                <h1>社員管理システム</h1>
+        <div style="" class="loginBox">
+            <div style=" text-align: center; font-size: 16px;position: relative">
+                <div style="position: absolute;left: 100px">社員管理システム</div>
+                <img src="../assets/23047578.png" style="height: 250px"/>
             </div>
-            <el-form :model="user" :rules="rules" ref="userForm">
+            <el-form :model="user" :rules="rules" ref="userForm" style="width: 200px;margin: 0 auto">
                 <el-form-item prop="username">
                     <el-input size="medium" prefix-icon="el-icon-user" v-model="user.username"></el-input>
                 </el-form-item>
@@ -67,7 +66,21 @@ export default {
 <style scoped>
 .wrapper {
     height: 100vh;
-    background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+    display: flex;
+    background: linear-gradient(0.25turn, #d9d9d9, #d9d9d9, #8c939d);
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+}
+.loginBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.2);
     overflow: hidden;
+    z-index: 10;
+
 }
 </style>

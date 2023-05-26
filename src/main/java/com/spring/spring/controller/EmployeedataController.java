@@ -3,6 +3,7 @@ package com.spring.spring.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.spring.spring.common.Result;
 import com.spring.spring.controller.dto.UserDTO;
 import com.spring.spring.entity.User;
 import com.spring.spring.utils.TokenUtils;
@@ -32,84 +33,87 @@ private IEmployeedataService employeedataService;
 
 //新規とアップデート
 @PostMapping
-public boolean save(@RequestBody Employeedata employeedata) {
-        return employeedataService.saveOrUpdate(employeedata);
+public Result save(@RequestBody Employeedata employeedata) {
+        return Result.success(employeedataService.saveOrUpdate(employeedata));
         }
 
 // 削除機能
 @DeleteMapping("/{id}")
-public Boolean delete(@PathVariable Integer id) {
-        return employeedataService.removeById(id);
+public Result delete(@PathVariable Integer id) {
+
+        return Result.success(employeedataService.removeById(id));
         }
 
 @GetMapping
-public List<Employeedata> findAll() {
-        return employeedataService.list();
+public Result findAll() {
+
+        return Result.success(employeedataService.list());
         }
 
 //検索
 @GetMapping("/{id}")
-public Employeedata findOne(@PathVariable Integer id) {
-        return employeedataService.getById(id);
+public Result findOne(@PathVariable Integer id) {
+
+        return Result.success(employeedataService.getById(id));
         }
 
 // ページネーション検索機能
 @GetMapping("/page")
-public Page<Employeedata> findPage(@RequestParam Integer pageNum,
+public Result findPage(@RequestParam Integer pageNum,
                                    @RequestParam Integer pageSize,
-                                   @RequestParam(defaultValue = "") String name,
-                                   @RequestParam(defaultValue = "") String gender,
-                                   @RequestParam(defaultValue = "") String department,
-                                   @RequestParam(defaultValue = "") String date,
-                                   @RequestParam(defaultValue = "") String academic,
-                                   @RequestParam(defaultValue = "") String mail,
-                                   @RequestParam(defaultValue = "") String hobby,
-                                   @RequestParam(defaultValue = "") String phone,
-                                   @RequestParam(defaultValue = "") String address,
-                                   @RequestParam(defaultValue = "") String imgUrl,
-                                   @RequestParam(defaultValue = "") String zipcode
+                                   @RequestParam(defaultValue = "") String search
                                    ) {
         QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
-        if(!"".equals(name)){
-                queryWrapper.like("name", name);
+        if(!"".equals(search)){
+                queryWrapper.like("name", search);
+                queryWrapper.or();
+                queryWrapper.like("department",search);
+                queryWrapper.or();
+                queryWrapper.like("phone",search);
+                queryWrapper.or();
+                queryWrapper.like("academic",search);
+                queryWrapper.or();
+                queryWrapper.like("address",search);
+                queryWrapper.or();
+                queryWrapper.like("mail",search);
         }
-        if(!"".equals(gender)){
-                queryWrapper.like("gender", gender);
-        }
-        if(!"".equals(department)){
-                queryWrapper.like("department", department);
-        }
-        if(!"".equals(date)){
-                queryWrapper.like("date", date);
-        }
-        if(!"".equals(academic)){
-                queryWrapper.like("academic", academic);
-        }
-        if(!"".equals(mail)){
-                queryWrapper.like("mail", mail);
-        }
-        if(!"".equals(hobby)){
-                queryWrapper.like("hobby", hobby);
-        }
-        if(!"".equals(phone)){
-                queryWrapper.like("phone", phone);
-        }
-        if(!"".equals(address)){
-                queryWrapper.like("address", address);
-        }
-        if(!"".equals(imgUrl)){
-                queryWrapper.like("imgUrl", imgUrl);
-        }
-        if(!"".equals(zipcode)){
-                queryWrapper.like("zipcode", zipcode);
-        }
+//        if(!"".equals(gender)){
+//                queryWrapper.like("gender", gender);
+//        }
+//        if(!"".equals(department)){
+//                queryWrapper.like("department", department);
+//        }
+//        if(!"".equals(date)){
+//                queryWrapper.like("date", date);
+//        }
+//        if(!"".equals(academic)){
+//                queryWrapper.like("academic", academic);
+//        }
+//        if(!"".equals(mail)){
+//                queryWrapper.like("mail", mail);
+//        }
+//        if(!"".equals(hobby)){
+//                queryWrapper.like("hobby", hobby);
+//        }
+//        if(!"".equals(phone)){
+//                queryWrapper.like("phone", phone);
+//        }
+//        if(!"".equals(address)){
+//                queryWrapper.like("address", address);
+//        }
+//        if(!"".equals(imgUrl)){
+//                queryWrapper.like("imgUrl", imgUrl);
+//        }
+//        if(!"".equals(zipcode)){
+//                queryWrapper.like("zipcode", zipcode);
+//        }
 
         //ユーザーのデータ情報を抽出
         User currentUser = TokenUtils.getCurrentUser();
         System.out.println("現在のユーザー名 ++++++++++++" + currentUser.getName());
 
 
-        return employeedataService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        return Result.success(employeedataService.page(new Page<>(pageNum, pageSize), queryWrapper));
 }
 
 }

@@ -34,7 +34,7 @@ request.interceptors.response.use(
         if (typeof res === 'string') {
             res = res ? JSON.parse(res) : res
         }
-        if(res.code == '401'){
+        if(res.code === '401'){
             ElementUI.Message({
                 message: res.msg,
                 type : 'error'
