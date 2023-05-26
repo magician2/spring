@@ -56,7 +56,6 @@ public Employeedata findOne(@PathVariable Integer id) {
 public Page<Employeedata> findPage(@RequestParam Integer pageNum,
                                    @RequestParam Integer pageSize,
                                    @RequestParam(defaultValue = "") String name,
-                                   @RequestParam(defaultValue = "") String age,
                                    @RequestParam(defaultValue = "") String gender,
                                    @RequestParam(defaultValue = "") String department,
                                    @RequestParam(defaultValue = "") String date,
