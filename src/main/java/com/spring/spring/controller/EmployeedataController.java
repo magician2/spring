@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spring.spring.controller.dto.UserDTO;
+import com.spring.spring.entity.User;
+import com.spring.spring.utils.TokenUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
@@ -101,6 +103,12 @@ public Page<Employeedata> findPage(@RequestParam Integer pageNum,
         if(!"".equals(zipcode)){
                 queryWrapper.like("zipcode", zipcode);
         }
+
+        //ユーザーのデータ情報を抽出
+        User currentUser = TokenUtils.getCurrentUser();
+        System.out.println("現在のユーザー名 ++++++++++++" + currentUser.getName());
+
+
         return employeedataService.page(new Page<>(pageNum, pageSize), queryWrapper);
 }
 
