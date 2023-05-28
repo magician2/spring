@@ -8,9 +8,11 @@ import request from "@/utils/request";
 import lang from 'element-ui/lib/locale/lang/ja'
 import locale from 'element-ui/lib/locale'
 import store from './store'
-import { Core as YubinBangoCore } from 'yubinbango-core'
+import { Line } from 'vue-chartjs'
+import { Chart, registerables } from "chart.js";
 
-Vue.use(ElementUI,{size: "mini"},{locale});
+
+Vue.use(ElementUI,{size: "small"},{locale});
 
 locale.use(lang)
 

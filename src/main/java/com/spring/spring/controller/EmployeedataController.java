@@ -46,7 +46,6 @@ public Result delete(@PathVariable Integer id) {
 
 @GetMapping
 public Result findAll() {
-
         return Result.success(employeedataService.list());
         }
 
@@ -116,5 +115,46 @@ public Result findPage(@RequestParam Integer pageNum,
         return Result.success(employeedataService.page(new Page<>(pageNum, pageSize), queryWrapper));
 }
 
+@GetMapping("/getAddress/all")
+public Result findAddressAll(){
+        return Result.success(employeedataService.count());
+        }
+@GetMapping("/getAddress/tokyo")
+public Result findAddressTokyo(){
+        QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("address","東京");
+        return Result.success(employeedataService.count(queryWrapper));
+}
+@GetMapping("/getAddress/saitama")
+public Result findAddressSaitama(){
+        QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("address","埼玉県");
+        return Result.success(employeedataService.count(queryWrapper));
+        }
+
+@GetMapping("/getAddress/kanagawa")
+public Result findAddressKanagawa(){
+        QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("address","神奈川県");
+        return Result.success(employeedataService.count(queryWrapper));
+        }
+@GetMapping("/getAddress/tiba")
+public Result findAddressTiba(){
+        QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("address","千葉県");
+        return Result.success(employeedataService.count(queryWrapper));
+        }
+@GetMapping("/gender/man")
+public Result findGender(){
+        QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("gender","男");
+        return Result.success(employeedataService.count(queryWrapper));
+        }
+@GetMapping("/gender/woman")
+public Result findGenderWoman(){
+                QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
+                queryWrapper.like("gender","女");
+                return Result.success(employeedataService.count(queryWrapper));
+        }
 }
 

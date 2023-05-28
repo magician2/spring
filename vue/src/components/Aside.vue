@@ -1,6 +1,5 @@
 <template>
-    <div style="height: 100%">
-        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" router style="height: 100%">
+        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" router style="">
 <!--            <el-menu-item index="/home">-->
 <!--                <template slot="title">-->
 <!--                    <i class="el-icon-house"></i>-->
@@ -13,19 +12,41 @@
                     <span>社員一覧</span>
                 </template>
             </el-menu-item>
-            <el-menu-item index="">
+            <el-menu-item index="/analyze">
                 <template slot="title">
                     <i class="el-icon-s-data"></i>
                     <span>分析</span>
                 </template>
             </el-menu-item>
+            <el-menu-item-group style="position: absolute;bottom: 20%;width: 100%">
+                <template slot="title">{{user.name}}</template>
+                <el-menu-item  @click="logout">
+                    <i class="el-icon-switch-button"></i>
+                    <span>Logout</span>
+                </el-menu-item>
+            </el-menu-item-group>
         </el-menu>
-    </div>
+
+
 
 </template>
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     min-height: 400px;
+    position: relative;
+    padding-top: 40%;
+    border: 0px;
+    height: 100%;
+    box-sizing: border-box;
+    background: rgb(239, 242, 245);
+}
+.el-menu-item{
+    padding-left: 20%!important;
+    font-size: 16px!important;
+    color: #909399;
+}
+.el-menu-item:hover, i:hover{
+    color: #409EFF!important;
 }
 </style>
 
@@ -33,10 +54,15 @@
 export default {
     data() {
         return {
+            user:localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
         };
     },
     methods: {
-
+        logout(){
+            this.$router.push("/Login")
+            localStorage.removeItem("user")
+            this.$message.success("ログアウトしました")
+        }
     },
 
 }

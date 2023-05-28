@@ -2,27 +2,11 @@
 <div>
     <div class="pd-10 ml-5" style="margin: 20px 0;">
         <div>
-<!--            <el-select  placeholder="検索範囲を選んでください"  v-model="selectValue" style="margin: 0 5px" @change="selected">-->
-<!--                <el-option label="名前" value="name"></el-option>-->
-<!--                <el-option label="部署" value="department"></el-option>-->
-<!--                <el-option label="性別" value="gender"></el-option>-->
-<!--                <el-option label="電話番号" value="phone"></el-option>-->
-<!--                <el-option label="最終履歴" value="academic"></el-option>-->
-<!--                <el-option label="メールアドレス" value="mail"></el-option>-->
-<!--                <el-option label="住所" value="address"></el-option>-->
-<!--            </el-select>-->
             <el-input style="width: 200px;margin: 0 5px"
-
-                      v-model="search"></el-input>
+                      v-model="search" @keyup.enter.native="load" clearable></el-input>
             <el-button type="primary" @click="load" icon="el-icon-search">検索</el-button>
             <el-button class="ml-5" type="primary" @click="reset" icon="el-icon-refresh-left">クリア</el-button>
         </div>
-<!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="年齢" v-model="age"></el-input>-->
-<!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="生年月日" v-model="date"></el-input>-->
-<!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="趣味" v-model="hobby"></el-input>-->
-<!--        <el-input style="width: 200px" suffix-icon="el-icon-house" class="ml-5" placeholder="最終履歴" v-model="academic"></el-input>-->
-<!--        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="メールアドレス" v-model="mail"></el-input>-->
-<!--        <el-input style="width: 200px" suffix-icon="el-icon-s-custom" class="ml-5" placeholder="電話番号" v-model="phone"></el-input>-->
     </div>
     <div style="margin: 10px 0">
         <el-button type="primary" @click="handleAdd" icon="el-icon-plus">新規登録</el-button>
@@ -62,73 +46,81 @@
                @close="closeDialog"
                @open="openDialog"
                :close-on-click-modal="false">
-        <el-form :model="form" :rules="rules" ref="form" class="demo-ruleForm" label-width="130px">
-            <el-row :gutter="12">
-                <el-col :span="6">
+        <el-form :model="form" :rules="rules" ref="form" class="demo-ruleForm" label-width="130px" label-position="top">
+            <div style="" class="dialogBox">
+                    <h1>基本情報</h1>
                     <el-upload
                         class="avatar-uploader"
                         action="http://localhost:9090/file/upload"
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
-                        style="width: 200px;text-align: center"
+                        style="width: 200px;margin: 0 auto;"
                     >
                         <img v-if="imgIf" :src="form.imgurl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
-                </el-col>
-                <el-col :span="3" :offset="3">
                     <el-form-item label="名前"  prop="name" class="input_box">
                         <el-input  autocomplete="off" v-model="form.name"></el-input>
                     </el-form-item>
-                    <p>{{form.name}}</p>
                     <el-form-item label="性別" prop="gender" class="input_box">
-                        <el-select  placeholder="性別を選んでください"  v-model="form.gender">
-                            <el-option label="男性" value="男性"></el-option>
-                            <el-option label="女性" value="女性"></el-option>
-                        </el-select>
+                        <el-radio-group v-model="form.gender">
+                            <el-radio-button label="男性"></el-radio-button>
+                            <el-radio-button label="女性"></el-radio-button>
+                        </el-radio-group>
                     </el-form-item>
-                    <el-form-item label="部署"  prop="department" class="input_box">
-                        <el-select  placeholder="部署を選んでください"  v-model="form.department">
-                            <el-option label="SS事業部" value="SS事業部"></el-option>
-                            <el-option label="営業部" value="営業部"></el-option>
-                            <el-option label="製品開発事業部" value="製品開発事業部"></el-option>
-                            <el-option label="管理部" value="管理部"></el-option>
-                            <el-option label="品質管理部" value="品質管理部"></el-option>
-                            <el-option label="インバウンド事業部" value="インバウンド事業部"></el-option>
-                            <el-option label="情報システム管理部" value="情報システム管理部"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="生年月日"  prop="date" class="input_box">
-                        <div class="block">
-                            <el-date-picker
-                                v-model="form.date"
-                                type="date"
-                                placeholder="生年月日選択">
-                            </el-date-picker>
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="趣味" class="input_box">
-                        <el-input  autocomplete="off" v-model="form.hobby"></el-input>
-                    </el-form-item>
-                    <el-form-item label="電話番号"  prop="phone" class="input_box">
-                        <el-input  autocomplete="off" v-model="form.phone" @blur="checkBlur($event)"></el-input>
-                    </el-form-item>
-                    <el-form-item label="最終学歴"  class="input_box">
-                        <el-input  autocomplete="off" v-model="form.academic"></el-input>
-                    </el-form-item>
-                    <el-form-item label="メールアドレス" prop="mail" class="input_box">
-                        <el-input  autocomplete="off" v-model="form.mail"></el-input>
-                    </el-form-item>
-                    <el-form-item label="郵便番号" prop="zipcode" class="input_box">
-                        <el-input v-model="form.zipcode"></el-input>
-                        <el-button style="font-size: 12px" class="ml-5" @click="addCheck">郵便番号から住所を検索</el-button>
-                    </el-form-item>
-                    <el-form-item label="住所" class="input_box">
-                        <el-input  v-model="form.address" ></el-input>
-                        <p>{{form.address}}</p>
-                    </el-form-item>
-                </el-col>
-            </el-row>
+                <el-form-item label="生年月日"  prop="date" class="input_box">
+                    <div class="block">
+                        <el-date-picker
+                            v-model="form.date"
+                            type="date"
+                            placeholder="生年月日選択">
+                        </el-date-picker>
+                    </div>
+                </el-form-item>
+                <el-form-item label="部署"  prop="department" class="input_box">
+                    <el-select  placeholder="部署を選んでください"  v-model="form.department">
+                        <el-option label="SS事業部" value="SS事業部"></el-option>
+                        <el-option label="営業部" value="営業部"></el-option>
+                        <el-option label="製品開発事業部" value="製品開発事業部"></el-option>
+                        <el-option label="管理部" value="管理部"></el-option>
+                        <el-option label="品質管理部" value="品質管理部"></el-option>
+                        <el-option label="インバウンド事業部" value="インバウンド事業部"></el-option>
+                        <el-option label="情報システム管理部" value="情報システム管理部"></el-option>
+                    </el-select>
+                </el-form-item>
+            </div>
+            <div class="dialogBox">
+                <h1>連絡先</h1>
+                <el-form-item label="メールアドレス" prop="mail" class="input_box">
+                    <el-input  autocomplete="off" v-model="form.mail"></el-input>
+                </el-form-item>
+                <el-form-item label="電話番号(ハイフン - なし)"  prop="phone" class="input_box">
+                    <el-input  autocomplete="off" v-model="form.phone" @blur="checkBlur($event)"></el-input>
+                </el-form-item>
+            </div>
+            <div class="dialogBox">
+                <h1>住所</h1>
+                <el-form-item label="郵便番号(ハイフン - なし)" prop="zipcode" class="input_box">
+                    <el-input v-model="form.zipcode"></el-input>
+                    <el-button style="font-size: 12px" class="ml-5" @click="addCheck">郵便番号から住所を検索</el-button>
+                </el-form-item>
+                <el-form-item label="住所" class="input_box">
+                    <el-input  v-model="form.address" ></el-input>
+                    <p>{{form.address}}</p>
+                </el-form-item>
+            </div>
+            <div class="dialogBox">
+                <h1>その他</h1>
+                <el-form-item label="趣味" class="input_box">
+                    <el-input  autocomplete="off" v-model="form.hobby"></el-input>
+                </el-form-item>
+                <el-form-item label="最終学歴"  class="input_box">
+                    <el-input  autocomplete="off" v-model="form.academic"></el-input>
+                </el-form-item>
+            </div>
+
+
+
         </el-form>
     <div slot="footer" class="dialog-footer">
         <el-button @click="closeDialog">キャンセル</el-button>
@@ -162,7 +154,7 @@ export default defineComponent({
             tableData: [],
             info :{},
             form:{address: ''},
-            dialogTitle:"ddd",
+            dialogTitle:"",
             total:0,
             pageNum : 1,
             pageSize:10,
@@ -308,6 +300,7 @@ export default defineComponent({
             this.form.imgurl = res;
             if(this.form.imgurl){
                 this.imgIf = true
+                this.$forceUpdate();
             }
             else {
             }
@@ -362,15 +355,14 @@ export default defineComponent({
 .headerBg{
     //background: #83c5be!important;
     text-align: center!important;
-    border-top: 4px  solid #83c5be!important;
+
 }
-.avatar-uploader .el-upload {
+.el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    text-align: center;
 }
 .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
@@ -378,16 +370,35 @@ export default defineComponent({
 .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 300px;
-    height: 300px;
-    line-height: 300px;
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
     text-align: center;
 }
 .avatar {
-    height: 300px;
+    max-width: 100%;
+    max-height: 100%;
     display: block;
 }
 .input_box{
-    width: 300px;
+
+}
+.el-form-item__label{
+    padding: 0px!important;
+}
+.el-input__inner{
+    border: none;
+    border-radius: 0px;
+    border-bottom: 0.5px solid #8c939d;
+}
+.dialogBox{
+    border: 2px solid #d9d9d9;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 30px 40px;
+}
+.dialogBox h1{
+    margin-bottom: 5px;
 }
 </style>

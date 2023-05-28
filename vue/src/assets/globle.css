@@ -12,6 +12,9 @@ html,body{
     margin-left: 5px;
     margin-top: 5px;
 }
+.mt-5{
+    margin: 10px 0;
+}
 .mr-5{
     margin-right: 5px;
 }
