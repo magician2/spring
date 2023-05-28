@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `business`
+-- Table structure for table `manager`
 --
 
-DROP TABLE IF EXISTS `business`;
+DROP TABLE IF EXISTS `manager`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `business` (
+CREATE TABLE `manager` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `date` varchar(100) NOT NULL,
-  `sales` int NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `business`
+-- Dumping data for table `manager`
 --
 
-LOCK TABLES `business` WRITE;
-/*!40000 ALTER TABLE `business` DISABLE KEYS */;
-INSERT INTO `business` VALUES (1,'5',331122),(2,'6',466123),(3,'7',220000),(4,'8',125112),(5,'9',333113),(6,'10',150000);
-/*!40000 ALTER TABLE `business` ENABLE KEYS */;
+LOCK TABLES `manager` WRITE;
+/*!40000 ALTER TABLE `manager` DISABLE KEYS */;
+INSERT INTO `manager` VALUES (1,'root','root','管理人'),(2,'admin','admin','管理人2');
+/*!40000 ALTER TABLE `manager` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
