@@ -78,7 +78,7 @@ export default defineComponent({
         })
 
     },
-    mounted:function (){
+    mounted (){
       setTimeout(()=>{
           var chartDom = document.getElementById('chart_address');
           var myChart = echarts.init(chartDom);
@@ -126,6 +126,13 @@ export default defineComponent({
           };
           myChart.setOption(option);
 
+          var allSales =0;
+          for (let i = 0;i<this.business.length;i++){
+              allSales += parseInt(this.business[i].sales)
+          }
+          console.log(allSales)
+          this.allSales = allSales
+
           var chartDom2 = document.getElementById('chart_business');
           var myChart2 = echarts.init(chartDom2);
           var option2;
@@ -155,7 +162,6 @@ export default defineComponent({
               ]
           };
           myChart2.setOption(option2);
-          this.getSales()
       },100)
 
     },
@@ -177,14 +183,7 @@ export default defineComponent({
         }
     },
     methods:{
-        getSales(){
-            var allSales =0;
-             for (let i = 0;i<this.business.length;i++){
-                 allSales += parseInt(this.business[i].sales)
-            }
-            console.log(allSales)
-            this.allSales = allSales
-        }
+
     }
 
 })

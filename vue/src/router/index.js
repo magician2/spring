@@ -13,6 +13,7 @@ const routes = [
     children:[
       {path: 'employee', name: '社員一覧', component: () => import('../views/Employee.vue'),},
       {path: 'analyze', name: '分析', component: () => import('../views/Analyze.vue'),},
+      {path: 'attendance', name: '勤怠管理', component: () => import('../views/Attendance.vue'),},
     ]
   },
   {

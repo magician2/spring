@@ -1,23 +1,29 @@
 <template>
         <el-menu default-active="1-4-1" class="el-menu-vertical-demo" router style="">
-<!--            <el-menu-item index="/home">-->
-<!--                <template slot="title">-->
-<!--                    <i class="el-icon-house"></i>-->
-<!--                    <span>TOP</span>-->
-<!--                </template>-->
-<!--            </el-menu-item>-->
-            <el-menu-item index="/employee">
-                <template slot="title">
-                    <i class="el-icon-s-order"></i>
-                    <span>社員一覧</span>
-                </template>
-            </el-menu-item>
-            <el-menu-item index="/analyze">
+            <el-submenu index="1-4">
                 <template slot="title">
                     <i class="el-icon-s-data"></i>
-                    <span>分析</span>
+                    <span style="color: #909399 ">労務管理</span>
                 </template>
-            </el-menu-item>
+                <el-menu-item index="/employee" style="min-width: 120px">
+                    <template slot="title">
+                        <i class="el-icon-s-order"></i>
+                        <span>社員一覧</span>
+                    </template>
+                </el-menu-item>
+                <el-menu-item index="/analyze" style="min-width: 120px">
+                    <template slot="title">
+                        <i class="el-icon-pie-chart"></i>
+                        <span>分析</span>
+                    </template>
+                </el-menu-item>
+                <el-menu-item index="/attendance" style="min-width: 120px">
+                    <template slot="title">
+                        <i class="el-icon-s-claim"></i>
+                        <span>勤怠管理</span>
+                    </template>
+                </el-menu-item>
+            </el-submenu>
             <el-menu-item-group style="position: absolute;bottom: 20%;width: 100%">
                 <template slot="title">{{user.name}}</template>
                 <el-menu-item  @click="logout">
@@ -34,7 +40,7 @@
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     min-height: 400px;
     position: relative;
-    padding-top: 40%;
+    padding-top: 20%;
     border: 0px;
     height: 100%;
     box-sizing: border-box;
@@ -45,6 +51,7 @@
     font-size: 16px!important;
     color: #909399;
 }
+
 .el-menu-item:hover, i:hover{
     color: #409EFF!important;
 }

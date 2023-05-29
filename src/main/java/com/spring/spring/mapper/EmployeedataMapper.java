@@ -1,5 +1,6 @@
 package com.spring.spring.mapper;
 
+import com.github.yulichang.base.MPJBaseMapper;
 import com.spring.spring.entity.Employeedata;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -11,6 +12,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 朴雄権
  * @since 2023-05-16
  */
-public interface EmployeedataMapper extends BaseMapper<Employeedata> {
+public interface EmployeedataMapper extends MPJBaseMapper<Employeedata> {
 
 }
