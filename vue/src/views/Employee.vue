@@ -232,7 +232,7 @@ export default defineComponent({
             postaddress:"",
             search:"",
             dialogActiveName: 'second',
-            dialogFormVisible: true,
+            dialogFormVisible: false,
             headerBg: 'headerBg',
             imgIf: false,
             cardChange:false,
@@ -357,7 +357,6 @@ export default defineComponent({
             this.form = row
             this.form = {address: ''}
             this.dialogFormVisible = true
-
             this.dialogTitle= "新規登録"
         },
         //削除処理
@@ -399,8 +398,8 @@ export default defineComponent({
                     search:this.search
                 }
             }).then(res => {
-                    this.tableData = res.data
-                    this.total = res.total
+                    this.tableData = res.data.records
+                    this.total = res.data.total
                 console.log(res)
                 }
             )

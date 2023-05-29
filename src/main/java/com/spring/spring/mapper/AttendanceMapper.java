@@ -1,9 +1,16 @@
 package com.spring.spring.mapper;
 
-import com.github.yulichang.base.MPJBaseMapper;
 import com.spring.spring.entity.Attendance;
-import org.apache.ibatis.annotations.Mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-@Mapper
-public interface AttendanceMapper extends MPJBaseMapper<Attendance> {
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author 朴雄権
+ * @since 2023-05-29
+ */
+public interface AttendanceMapper extends BaseMapper<Attendance> {
+
 }

@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/employee?serverTimezone=GMT%2b9
     username: root
-    password: 2021sunseerl56
+    password: Emperor1997
   redis:
     host: 127.0.0.1
     port: 6379
@@ -29,7 +29,7 @@ mybatis-plus:
 
 files:
   upload:
-    path: C:\Users\2021SUNSEERL56\IdeaProjects\files\
+    path: /Users/a9/Pictures/upload/
 
     #mac /Users/a9/Pictures/upload/
 #    #windows C:\Users\2021SUNSEERL56\IdeaProjects\files\
