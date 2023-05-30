@@ -1,10 +1,5 @@
 <template>
         <el-menu default-active="1-4-1" class="el-menu-vertical-demo" router style="">
-            <el-submenu index="1-4">
-                <template slot="title">
-                    <i class="el-icon-s-data"></i>
-                    <span style="color: #909399 ">労務管理</span>
-                </template>
                 <el-menu-item index="/employee" style="min-width: 120px">
                     <template slot="title">
                         <i class="el-icon-s-order"></i>
@@ -23,7 +18,12 @@
                         <span>勤怠管理</span>
                     </template>
                 </el-menu-item>
-            </el-submenu>
+                <el-menu-item index="/attendance" style="min-width: 120px">
+                    <template slot="title">
+                        <i class="el-icon-notebook-1"></i>
+                        <span>人材管理</span>
+                    </template>
+                </el-menu-item>
             <el-menu-item-group style="position: absolute;bottom: 20%;width: 100%">
                 <template slot="title">{{user.name}}</template>
                 <el-menu-item  @click="logout">

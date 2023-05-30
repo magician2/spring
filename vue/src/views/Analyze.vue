@@ -3,7 +3,7 @@
         <el-row :gutter="21">
             <el-col :span="6">
                 <div>
-                    <el-statistic group-separator="," :precision="2" :value="allSales" title="売上"></el-statistic>
+                    <el-statistic suffix ="h" group-separator="h" :precision="0" :value="overT" title="時間外労働"></el-statistic>
                 </div>
             </el-col>
             <el-col :span="6">
@@ -21,25 +21,16 @@
                 </div>
             </el-col>
             <el-col :span="6">
-                <div>
-                    <el-statistic group-separator="," :precision="2" decimal-separator="." :value="600000" title="目標額">
-                        <template slot="prefix">
-                            <i class="el-icon-s-flag" style="color: red"></i>
-                        </template>
-                        <template slot="suffix">
-                            <i class="el-icon-s-flag" style="color: blue"></i>
-                        </template>
-                    </el-statistic>
-                </div>
+
             </el-col>
         </el-row>
         <el-row :gutter="21" style="margin-top: 50px">
-            <el-col :span="6">
-              <div id="chart_address">
+            <el-col :span="8">
+              <div id="chart_address" ref="chart_address">
               </div>
             </el-col>
             <el-col :span="6">
-                <div id="chart_business">
+                <div id="chart_business" ref="chart_business">
                 </div>
             </el-col>
         </el-row>
@@ -76,12 +67,13 @@ export default defineComponent({
         this.request.get("/business").then(res=>{
             that.business = res.data
         })
-
+    this.attendanceLoad()
     },
     mounted (){
       setTimeout(()=>{
-          var chartDom = document.getElementById('chart_address');
-          var myChart = echarts.init(chartDom);
+
+          //ダッシュボード
+          var myChart = echarts.init(this.$refs.chart_address);
           var option= {
               tooltip: {
                   trigger: 'item'
@@ -133,36 +125,56 @@ export default defineComponent({
           console.log(allSales)
           this.allSales = allSales
 
-          var chartDom2 = document.getElementById('chart_business');
-          var myChart2 = echarts.init(chartDom2);
-          var option2;
+          // var myChart2 = echarts.init(this.$refs.chart_business);
+          // var option2;
+          //
+          // option2 = {
+          //     xAxis: {
+          //         type: 'category',
+          //         data: [this.business[0].date + '月', this.business[1].date + '月',
+          //             this.business[2].date + '月', this.business[3].date + '月',
+          //             this.business[4].date + '月', this.business[5].date + '月']
+          //     },
+          //     yAxis: {
+          //         type: 'value'
+          //     },
+          //     series: [
+          //         {
+          //             data: [
+          //                 this.business[0].sales,
+          //                 this.business[1].sales,
+          //                 this.business[2].sales,
+          //                 this.business[3].sales,
+          //                 this.business[4].sales,
+          //                 this.business[5].sales,
+          //             ],
+          //             type: 'bar'
+          //         }
+          //     ]
+          // };
+          // myChart2.setOption(option2);
 
-          option2 = {
-              xAxis: {
-                  type: 'category',
-                  data: [this.business[0].date + '月', this.business[1].date + '月',
-                      this.business[2].date + '月', this.business[3].date + '月',
-                      this.business[4].date + '月', this.business[5].date + '月']
-              },
-              yAxis: {
-                  type: 'value'
-              },
-              series: [
-                  {
-                      data: [
-                          this.business[0].sales,
-                          this.business[1].sales,
-                          this.business[2].sales,
-                          this.business[3].sales,
-                          this.business[4].sales,
-                          this.business[5].sales,
-                      ],
-                      type: 'bar'
-                  }
-              ]
-          };
-          myChart2.setOption(option2);
-      },100)
+          //残業時間計算
+
+          var overtime ;
+          var now = new Date();
+          var Year = now.getFullYear();
+          var Month = now.getMonth()+1;
+          var Dates = now.getDate();
+          var vv = Year + "-" + Month + "-" + Dates
+          for(let i =0;i < this.tableData.length;i++){
+              var leavingTime =new Date(this.tableData[i].leavingTime)
+              var over =new Date(vv+' 18:30')
+              // var commencementTime = new Date(this.tableData[i].commencementTime)
+              var difftime = (over-leavingTime) /1000
+              var days = parseInt(difftime/86400)
+              var hours = parseInt(difftime/3600)-24*days
+              var minutes = parseInt(difftime%3600/60);
+              this.overT += hours
+              overtime = hours + "時間" + minutes + "分"
+          }
+          console.log(this.overT)
+      },500)
 
     },
     data(){
@@ -179,11 +191,28 @@ export default defineComponent({
                 woman:""
             },
             business:{},
-            allSales:0
+            allSales:0,
+            tableData:[],
+            overT:0
+
         }
     },
     methods:{
+        attendanceLoad(){
+            this.request.get("/attendance/page?",{
+                params:{
+                    pageNum:1,
+                    pageSize:1000
+                }
+            }).then(res => {
+                    // this.tableData = res.data.records
+                    // this.total = res.data.total
+                    console.log(res)
+                    this.tableData = res.data
 
+                }
+            )
+        },
     }
 
 })
@@ -193,7 +222,7 @@ export default defineComponent({
 
 }
 .el-col div{
-    background: #FaFaFa;
+    background: rgb(239, 242, 245,0.5);
     height: 80px;
     line-height: 40px;
 }

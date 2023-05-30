@@ -1,14 +1,20 @@
 package com.spring.spring.controller;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spring.spring.common.Result;
 import com.spring.spring.controller.dto.UserDTO;
 import com.spring.spring.entity.User;
+import com.spring.spring.service.IAttendanceService;
 import com.spring.spring.utils.TokenUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.util.List;
 import com.spring.spring.service.IEmployeedataService;
 import com.spring.spring.entity.Employeedata;
@@ -30,6 +36,8 @@ public class EmployeedataController {
 
 @Resource
 private IEmployeedataService employeedataService;
+@Resource
+private IAttendanceService attendanceService;
 
 //新規とアップデート
 @PostMapping
@@ -55,7 +63,36 @@ public Result findOne(@PathVariable Integer id) {
 
         return Result.success(employeedataService.getById(id));
         }
+@GetMapping("/export")
+public void export(HttpServletResponse response) throws Exception {
+        // 从数据库查询出所有的数据
+        List<Employeedata> list = employeedataService.list();
+        // 通过工具类创建writer 写出到磁盘路径
+//      ExcelWriter writer = ExcelUtil.getWriter(filesUploadPath + "/用户信息.xlsx");
+        // 在内存操作，写出到浏览器
+        ExcelWriter writer = ExcelUtil.getWriter(true);
+        //自定义标题别名
+        writer.addHeaderAlias("name", "名前");
+        writer.addHeaderAlias("gender", "性別");
+        writer.addHeaderAlias("mail", "メールアドレス");
+        writer.addHeaderAlias("phone", "電話番号");
+        writer.addHeaderAlias("address", "住所");
+        writer.addHeaderAlias("zipcode", "郵便番号");
+        writer.addHeaderAlias("academic", "最終履歴");
 
+        // 一次性写出list内的对象到excel，使用默认样式，强制输出标题
+        writer.write(list, true);
+
+        // 设置浏览器响应的格式
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+        String fileName = URLEncoder.encode("社員情報", "UTF-8");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
+
+        ServletOutputStream out = response.getOutputStream();
+        writer.flush(out, true);
+        out.close();
+        writer.close();
+        }
 // ページネーション検索機能
 @GetMapping("/page")
 public Result findPage(@RequestParam Integer pageNum,

@@ -1,6 +1,7 @@
 package com.spring.spring.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Getter;
@@ -29,5 +30,9 @@ import lombok.Setter;
 
     private String restTime;
 
+    private String date;
 
+    private  Integer employeeId;
+  @TableField(exist = false)
+    private String name;
 }

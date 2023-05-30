@@ -1,6 +1,10 @@
 package com.spring.spring.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.spring.spring.common.Result;
+import com.spring.spring.entity.Employeedata;
+import com.spring.spring.service.IEmployeedataService;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,6 +29,8 @@ public class AttendanceController {
 @Resource
 private IAttendanceService attendanceService;
 
+@Resource
+private IEmployeedataService employeedataService;
 // 新增或者更新
 @PostMapping
 public boolean save(@RequestBody Attendance attendance) {
@@ -51,13 +57,20 @@ public Attendance findOne(@PathVariable Integer id) {
         return attendanceService.getById(id);
         }
 
-//@GetMapping("/page")
-//public Page<Attendance> findPage(@RequestParam Integer pageNum,
-//                                @RequestParam Integer pageSize) {
-//        QueryWrapper<Employeedata> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.orderByDesc("id");
-//        return attendanceService.page(new Page<>(pageNum, pageSize), queryWrapper);
-//        }
+@GetMapping("/page")
+public Result findPage(@RequestParam Integer pageNum,
+                       @RequestParam Integer pageSize) {
+        QueryWrapper<Attendance> queryWrapper = new QueryWrapper<>();
+        Page<Attendance> page= attendanceService.page(new Page<>(pageNum,pageSize),queryWrapper);
+        List<Attendance> records  = page.getRecords();
+        for(Attendance record: records){
+                Employeedata employeedata = employeedataService.getById(record.getEmployeeId());
+                if(employeedata !=null){
+                        record.setName(employeedata.getName());
+                }
+        }
+        return Result.success(records);
+        }
 
 }
 

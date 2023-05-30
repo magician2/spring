@@ -58,5 +58,6 @@ import lombok.Setter;
   @TableLogic
   private Integer del_flg;
 
-  
+  private Integer employeeId;
+
 }
