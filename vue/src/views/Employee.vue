@@ -96,7 +96,10 @@
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
                                 <el-form-item label="名前"  prop="name" class="input_box">
-                                    <el-input  autocomplete="off" v-model="form.name"></el-input>
+                                    <el-input  autocomplete="off" v-model="form.name" ></el-input>
+                                </el-form-item>
+                                <el-form-item label="フリガナ"  prop="katakana" class="input_box">
+                                    <el-input  autocomplete="off" v-model="form.katakana"></el-input>
                                 </el-form-item>
                                 <el-form-item label="性別" prop="gender" class="input_box">
                                     <el-radio-group v-model="form.gender">
@@ -187,6 +190,7 @@
 <script>
 import {defineComponent} from 'vue'
 import axios from "axios";
+import historykana from 'historykana'
 export default defineComponent({
     name: "Employee",
     data(){
@@ -198,6 +202,7 @@ export default defineComponent({
             form:{address: ''},
             dialogTitle:"",
             total:0,
+            history: [],
             pageNum : 1,
             pageSize:10,
             name:"",
@@ -208,6 +213,7 @@ export default defineComponent({
             mail:"",
             phone:"",
             academic:"",
+            katakana:"",
             address:"",
             imgurl:"",
             zipcode:"",
@@ -263,6 +269,13 @@ export default defineComponent({
     },
 
     methods:{
+        update_furigana () {
+            axios.get("http://www.google.com/transliterate?",{
+                params:{
+                    langpair:'ja-Hira|ja',
+                }
+            })
+        },
         cloumnChange(){
             this.cardChange = !this.cardChange
         },
@@ -380,6 +393,7 @@ export default defineComponent({
                     mail:this.mail,
                     phone:this.phone,
                     academic:this.academic,
+                    katakana:this.katakana,
                     //バックエンドから曖昧検索を処理する
                     search:this.search
                 }
