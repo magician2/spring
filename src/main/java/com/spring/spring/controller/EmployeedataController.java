@@ -53,8 +53,8 @@ public Result delete(@PathVariable Integer id) {
         }
 
 @GetMapping
-public Result findAll() {
-        return Result.success(employeedataService.list());
+public List<Employeedata> findAll() {
+        return employeedataService.list();
         }
 
 //検索

@@ -12,7 +12,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor())
                 .addPathPatterns("/**") //全てのRequestをcatch,@LoginRequidから登録条件を決める
-                .excludePathPatterns("/login","/file/**","/**/export","/**/import");
+                .excludePathPatterns("/login","/file/**","/**/export","/**/import","/employeedata","/employeedata/*");
     }
 
     @Bean

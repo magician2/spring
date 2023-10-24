@@ -48,16 +48,10 @@ import lombok.Setter;
 
     private String address;
 
-    private String username;
-    private String katakana;
 
     private String zipcode;
-  @TableField(exist = false)
-    private String password;
 
   @TableLogic
   private Integer del_flg;
-
-  private Integer employeeId;
 
 }
